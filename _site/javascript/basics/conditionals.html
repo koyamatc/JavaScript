@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Conditionals</h2>
+<p class="meta">30 May 2014</p>
+
+<div class="post">
+<h2 id="toc_0">条件式</h2>
+
+<h3 id="toc_1">if else 文</h3>
+
+<h4 id="toc_2">if 文</h4>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">yourName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">yourName</span><span class="p">.</span><span class="nx">length</span><span class="o">===</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;What is your name?&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h4 id="toc_3">条件に合うもの、合わないもの</h4>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">yourName</span> <span class="o">=</span> <span class="s2">&quot;NIck&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span>  <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">yourName</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Hi &quot;</span><span class="o">+</span> <span class="nx">yourName</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+   <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;What is your name?&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h4 id="toc_4">複数の条件をテスト</h4>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">yourName</span> <span class="o">=</span> <span class="s2">&quot;take&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">gender</span> <span class="o">=</span> <span class="s2">&quot;female&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">gender</span><span class="o">===</span><span class="s2">&quot;male&quot;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;His name is &quot;</span><span class="o">+</span><span class="nx">yourName</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">gender</span><span class="o">===</span><span class="s2">&quot;female&quot;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Her name is &quot;</span><span class="o">+</span><span class="nx">yourName</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Hi &quot;</span><span class="o">+</span><span class="nx">yourName</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h4 id="toc_5">1つの条件を満たす</h4>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">yourName</span> <span class="o">=</span> <span class="s2">&quot;Take&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">gender</span> <span class="o">=</span> <span class="s2">&quot;female&quot;</span><span class="p">;</span>
+
+<span class="c1">// don&#39;t forget to use the || operator </span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">gender</span> <span class="o">===</span> <span class="s2">&quot;male&quot;</span> <span class="o">||</span> <span class="nx">gender</span> <span class="o">===</span> <span class="s2">&quot;female&quot;</span>   <span class="p">)</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h4 id="toc_6">両方の条件を満たす</h4>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">yourName</span> <span class="o">=</span> <span class="s2">&quot;Take&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">gender</span> <span class="o">=</span> <span class="s2">&quot;male&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">yourName</span><span class="p">.</span><span class="nx">length</span><span class="o">&gt;</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">gender</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Thanks&quot;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Please make sure both yourName and gender are filled in.&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h4 id="toc_7">条件文の入れ子</h4>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">yourName</span> <span class="o">=</span> <span class="s2">&quot;Take&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">gender</span> <span class="o">=</span> <span class="s2">&quot;male&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">yourName</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">gender</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">gender</span> <span class="o">===</span><span class="s2">&quot;male&quot;</span> <span class="o">||</span> <span class="nx">gender</span><span class="o">===</span><span class="s2">&quot;female&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Thanks&quot;</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Please enter male or female for gender.&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Please tell us both your name and gender.&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<hr>
+
+<h3 id="toc_8">switch 文</h3>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">jacketColor</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">jacketColor</span><span class="p">)</span> <span class="p">{</span>
+    
+  <span class="k">case</span> <span class="s2">&quot;black&quot;</span><span class="o">:</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Pay $300&quot;</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+    
+  <span class="k">case</span> <span class="s2">&quot;brown&quot;</span><span class="o">:</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Pay $200&quot;</span><span class="p">;</span>  
+    <span class="k">break</span><span class="p">;</span>
+    
+  <span class="k">case</span> <span class="s2">&quot;green&quot;</span><span class="o">:</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;Pay $5&quot;</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+    
+  <span class="k">default</span><span class="o">:</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;This color does not match my eyes!&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<hr>
+
+<h3 id="toc_9">Ternary operators</h3>
+
+<p><em>result = x &gt; y ? &quot;good job&quot; : 20;</em></p>
+
+<p>右辺の結果を左辺に代入する。</p>
+
+<p><em>x &gt; y ?</em></p>
+
+<p><em>&quot;good job&quot; : 20;</em></p>
+
+<p>条件式が</p>
+
+<p>真の時 <em>:</em> の左側の値が <em>result</em> へ代入される</p>
+
+<p>負の時 <em>:</em> の右側の値が <em>result</em> へ代入される</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;good job&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//上記を ternary operator で書くと</span>
+<span class="nx">result</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span> <span class="o">?</span> <span class="s2">&quot;good job&quot;</span> <span class="o">:</span> <span class="mi">20</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+

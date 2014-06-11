@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Objects Ⅱ</h2>
+<p class="meta">28 May 2014</p>
+
+<div class="post">
+<p>オブジェクトが数値型でも文字列型でもなくオブジェクトだとどうしたらわかるのでしょう？
+いいものがあります</p>
+
+<p>型のわからない変数 <em>thing</em> があります、そこで
+typeof <em>thing</em> を呼ぶと、その型を知ることができます。</p>
+
+<p>最も利用するのは、&quot;number&quot;, &quot;string&quot;, &quot;function&quot;, &quot;object&quot;</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">anObj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">job</span><span class="o">:</span> <span class="s2">&quot;I&#39;m an object!&quot;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">aNumber</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">aString</span> <span class="o">=</span> <span class="s2">&quot;I&#39;m a string!&quot;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="k">typeof</span> <span class="nx">anObj</span> <span class="p">);</span> <span class="c1">// print &quot;object&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="k">typeof</span> <span class="nx">aNumber</span> <span class="p">);</span> <span class="c1">// print &quot;number&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="k">typeof</span> <span class="nx">aString</span> <span class="p">);</span> <span class="c1">// print &quot;string&quot;</span>
+</code></pre></div>
+
+<h4 id="toc_0">汝自身を知る</h4>
+
+<p>JavaScriptのオブジェクトは、道具箱を持っています。</p>
+
+<p>その中には <em>hasOwnProperty</em> というメソッドが含まれています。</p>
+
+<p>このメソッドは、オブジェクトが特定のプロパティを持っているかを
+ <em>true</em> か <em>false</em> で教えてくれます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Takeshi&quot;</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="p">);</span> 
+                  <span class="c1">// should print true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;nickname&#39;</span><span class="p">)</span> <span class="p">);</span> 
+                  <span class="c1">// should print false</span>
+
+<span class="kd">var</span> <span class="nx">suitcase</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">shirt</span><span class="o">:</span> <span class="s2">&quot;Hawaiian&quot;</span>
+<span class="p">};</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">suitcase</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;shorts&#39;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">suitcase</span><span class="p">.</span><span class="nx">shorts</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">suitcase</span><span class="p">.</span><span class="nx">shorts</span> <span class="o">=</span> <span class="s2">&quot;boxer&quot;</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">suitcase</span><span class="p">.</span><span class="nx">shorts</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="toc_1">for - in loop</h4>
+
+<p>オブジェクトに属するすべてのプロパティを扱います。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">dog</span> <span class="o">=</span> <span class="p">{</span>
+<span class="nx">species</span><span class="o">:</span> <span class="s2">&quot;bulldog&quot;</span><span class="p">,</span>
+<span class="nx">age</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="nx">color</span><span class="o">:</span> <span class="nx">brown</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>オブジェクト <em>dog</em> のすべてのプロパティを簡単に一度で表示します。</p>
+
+<p><em>var</em> と <em>in</em> はキーワードです。この位置に必ず書きます。</p>
+
+<p><em>dog</em> を別のオブジェクトに置き替えます。</p>
+
+<p><em>property</em> は変数名で、別の名前で構いません。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">property</span> <span class="k">in</span> <span class="nx">dog</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">property</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="toc_2">プロパティの値を全部リストアップ</h4>
+
+<p>for-in loopですべてのプロパティ名を取得できました。</p>
+
+<p>プロパティの値はどうでしょう？これもfor-in loopで取得できます。</p>
+
+<p>dog.species = dog[&quot;species&quot;] = &quot;bulldog&quot;</p>
+
+<p>なので</p>
+
+<p>var x = &quot;species&quot;</p>
+
+<p>ならば</p>
+
+<p>dog[x] = &quot;bulldog&quot;</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">dog</span> <span class="o">=</span> <span class="p">{</span>
+<span class="nx">species</span><span class="o">:</span> <span class="s2">&quot;bulldog&quot;</span><span class="p">,</span>
+<span class="nx">age</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="nx">color</span><span class="o">:</span> <span class="nx">brown</span>
+<span class="p">};</span>
+
+
+<span class="kd">var</span> <span class="nx">nyc</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">fullName</span><span class="o">:</span> <span class="s2">&quot;New York City&quot;</span><span class="p">,</span>
+    <span class="nx">mayor</span><span class="o">:</span> <span class="s2">&quot;Michael Bloomberg&quot;</span><span class="p">,</span>
+    <span class="nx">population</span><span class="o">:</span> <span class="mi">8000000</span><span class="p">,</span>
+    <span class="nx">boroughs</span><span class="o">:</span> <span class="mi">5</span>
+<span class="p">};</span>
+
+<span class="cm">/* write a for-in loop </span>
+<span class="cm">  to print the value of nyc&#39;s properties */</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">property</span> <span class="k">in</span> <span class="nx">nyc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">nyc</span><span class="p">[</span><span class="nx">property</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr>
+
+<h2 id="toc_3">Object Oriented Programmingの基礎</h2>
+
+<h3 id="toc_4">Class</h3>
+
+<p>コンストラクタを作成するとき、実は新しいクラスを定義しているのです。</p>
+
+<p>クラスは、ある種の型と考えられるし、または、オブジェクトのカテゴリとも
+考えられます(JavaScriptにおいて <em>Number</em> や <em>String</em>
+が型の種類であるように)。</p>
+
+<p><em>bob</em> と <em>susan</em> は、２つの別オブジェクトです。
+いかし両者は <em>Person</em> クラスに属しています。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Bob Smith&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">susan</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Susan Jordan&quot;</span><span class="p">,</span> <span class="mi">35</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_5">スヌーピーに教える</h3>
+
+<p>クラスは、プロパティとメソッドを持ちます、しかし、与えられたクラスが
+何ができて、何ができないのか、何を持っていて、何を持っていないのかを
+見ているものは何なのでしょう。</p>
+
+<p>この仕事をするのが <strong>prototype</strong> です。</p>
+
+<p>JavaScriptは、コンストラクタでもって自動的にクラスのためのプロトタイプを
+定義します。</p>
+
+<p><em>Dog</em> コンストラクタは、 <em>Dog</em> プロトタイプに必ず <em>breed</em> プロパティを持たせます。</p>
+
+<p><em>buddy</em> にメソッド <em>bark</em> を追加します。</p>
+
+<p><em>buddy</em> は吠えることができますが、</p>
+
+<p><em>snoopy</em> は同じ <em>Dog</em> クラスですが吠えることはできません。</p>
+
+<p><em>snoopy</em> にも吠え方を教えてあげなくてはいけません。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Dog</span> <span class="p">(</span><span class="nx">breed</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">breed</span> <span class="o">=</span> <span class="nx">breed</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// buddyを作成し、吠え方(bark)を教えます</span>
+<span class="kd">var</span> <span class="nx">buddy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">(</span><span class="s2">&quot;Golden Retriever&quot;</span><span class="p">);</span>
+<span class="nx">buddy</span><span class="p">.</span><span class="nx">bark</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Woof&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">buddy</span><span class="p">.</span><span class="nx">bark</span><span class="p">();</span>
+
+<span class="c1">// snoopyを作成します</span>
+<span class="kd">var</span> <span class="nx">snoopy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">(</span><span class="s2">&quot;Beagle&quot;</span><span class="p">);</span>
+
+<span class="c1">// snoopyに吠え方を教えていないので、エラーになります</span>
+<span class="nx">snoopy</span><span class="p">.</span><span class="nx">bark</span><span class="p">();</span>
+
+<span class="c1">// snoopyに 吠え方を教えます</span>
+<span class="nx">snoopy</span><span class="p">.</span><span class="nx">bark</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Wow&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="c1">// snoopyは吠えます</span>
+<span class="nx">snoopy</span><span class="p">.</span><span class="nx">bark</span><span class="p">();</span>
+</code></pre></div>
+
+<h3 id="toc_6">クラスはどのように役に立つのか</h3>
+
+<p>クラスはoopでとても重要です。</p>
+
+<p>オブジェクトに関する有用な情報を、クラスは教えてくれるからです。</p>
+
+<p>オブジェクトはクラスの実体と考えられます。</p>
+
+<p>また <em>Person</em> クラスを見ましょう。</p>
+
+<p>どの <em>Person</em> にも <em>name</em>  と <em>age</em>  があります。</p>
+
+<p>それはコンストラクタにあるからです。</p>
+
+<p>このことは、 <em>Person</em> を引数として受け取り、その名前を表示する
+ <em>printPersonName</em> のような関数を作ることができます。</p>
+
+<p>この関数はどの <em>Person</em> に対しても動作します。</p>
+
+<p>なぜなら <em>name</em> はそのクラスの有効なプロパティだからです。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 引数Personの名前を表示する関数</span>
+<span class="kd">function</span> <span class="nx">printPersonName</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Bob Smith&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="nx">printPersonName</span><span class="p">(</span><span class="nx">bob</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Takeshi Koyama&quot;</span><span class="p">,</span> <span class="mi">54</span><span class="p">);</span>
+<span class="nx">printPersonName</span><span class="p">(</span><span class="nx">me</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_7">プロトタイプを応援！</h3>
+
+<p>また似たようなコードですが、重要な違いがあります。</p>
+
+<p><em>buddy</em> オブジェクトに bark メソッドを追加するのに</p>
+
+<p><em>buddy.bark</em> を使う代わりに <em>Dog.prototype.bark</em> を使っています。</p>
+
+<p>これは、 <em>Dog</em> クラスのプロトタイプを変更したことになります。</p>
+
+<p>これで <em>buddy</em> も <em>snoopy</em> も吠えることができます。</p>
+
+<p>こうするとすべての <em>Dog</em> に、直ちに新しいメソッドを教えられます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Dog</span> <span class="p">(</span><span class="nx">breed</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">breed</span> <span class="o">=</span> <span class="nx">breed</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// buddyを作成し吠え方(bark)を教える</span>
+<span class="kd">var</span> <span class="nx">buddy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">(</span><span class="s2">&quot;golden Retriever&quot;</span><span class="p">);</span>
+<span class="nx">Dog</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bark</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Woof&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">buddy</span><span class="p">.</span><span class="nx">bark</span><span class="p">();</span>
+
+<span class="c1">// snoopyを作成</span>
+<span class="kd">var</span> <span class="nx">snoopy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">(</span><span class="s2">&quot;Beagle&quot;</span><span class="p">);</span>
+<span class="c1">/// 今度は動く</span>
+<span class="nx">snoopy</span><span class="p">.</span><span class="nx">bark</span><span class="p">();</span>
+</code></pre></div>
+
+<p>一般に、クラスのメンバーすべてが使えるメソッドをクラスに追加するには、
+ 下記のように記述しプロトタイプを拡張します。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">className</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">newMethod</span> <span class="o">=</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="nx">statements</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h2 id="toc_8">富を受け継ぐ</h2>
+
+<h3 id="toc_9">すべては遺伝子に</h3>
+
+<p>OOPでは、 <strong>継承</strong> は、あるクラスが他のクラスの
+プロパティを見たりメソッドを使えるようにします。</p>
+
+<p>まずは復習</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Animal class を作る</span>
+<span class="kd">function</span> <span class="nx">Animal</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">numLegs</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="nx">numLegs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// sayName method for Animal　を作る</span>
+<span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi my name is &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// penguinオブジェクトを作り、メソッドを実行する</span>
+<span class="kd">var</span> <span class="nx">penguin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Animal</span><span class="p">(</span><span class="s2">&quot;Captain Cook&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">penguin</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span>
+</code></pre></div>
+
+<h3 id="toc_10">ペンギンの行進</h3>
+
+<p>Animalクラスと同様なPenguinクラスを作ります。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Animal class を作る</span>
+<span class="kd">function</span> <span class="nx">Animal</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">numLegs</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="nx">numLegs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// sayName method for Animal　を作る</span>
+<span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi my name is &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// Penguin class を作る</span>
+<span class="kd">function</span> <span class="nx">Penguin</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">numLegs</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="nx">numLegs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// sayName method for Penguin　を作る</span>
+<span class="nx">Penguin</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi my name is &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// penguinオブジェクトを作り、メソッドを実行</span>
+<span class="kd">var</span> <span class="nx">penguin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Penguin</span><span class="p">(</span><span class="s2">&quot;Captain Cook&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">penguin</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span>
+</code></pre></div>
+
+<h3 id="toc_11">DRY ペンギン</h3>
+
+<p>前掲のコードでは、*Penguin* は <em>Animal</em> クラスの多くのコードを再度書いています。</p>
+
+<p>これはプログラミングの&quot;DRY&quot;principle(コードの重複記述を避ける)に反します。</p>
+
+<p>ここで <strong>継承</strong> が役に立ちます。</p>
+
+<p><em>Penguin</em> は <em>Animal</em> ですから、 <em>Animal</em> として    すべてのプロパティとメソッドを持たせるべきです。</p>
+
+<p><em>X is Y</em> の関係がある場合は、継承を使ういいチャンスです。</p>
+
+<p><em>継承</em> は他のクラスのプロパティやメソッドを見たり使ったりさせます。</p>
+
+<p><em>Penguin</em> に <em>Animal</em> を継承させましょう。</p>
+
+<p>それには <em>Penguin</em> の <em>prototype</em> を <em>Animal</em> にします。</p>
+
+<p><em>Penguin</em> クラスを定義します。</p>
+
+<p><em>Penguin</em> コンストラクタは元の <em>Animal</em> コンストラクタに比べユニークです。</p>
+
+<p>ペンギンはすべて２本脚ですし、引数は <em>name</em> しかとりません。</p>
+
+<p><em>Penguin</em> に <em>Animal</em> から_継承_ させましょう。</p>
+
+<p><em>Penguin.prototype  = new Animal()</em> </p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// the original Animal class and sayName method</span>
+<span class="kd">function</span> <span class="nx">Animal</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">numLegs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="nx">numLegs</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi my name is &quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// define a Penguin class</span>
+<span class="kd">function</span> <span class="nx">Penguin</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// set its prototype to be a new instance of Animal</span>
+<span class="nx">Penguin</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Animal</span><span class="p">();</span>
+<span class="nx">penguin</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Penguin</span><span class="p">(</span><span class="s2">&quot;Take&quot;</span><span class="p">);</span>
+<span class="nx">penguin</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span>
+</code></pre></div>
+
+<h3 id="toc_12">ペンギン、プロパティ、プロトタイプ</h3>
+
+<p><em>Penguin</em> が、どのように <em>sayName</em> メソッドを
+<em>Animal</em> から継承するかをみました。</p>
+
+<p>今度はクラスがプロパティを継承するのを見てみましょう。</p>
+
+<p><em>Penguin</em> クラスを定義します。 <em>Animal</em> から何も継承していません。</p>
+
+<p><em>Emperor</em> クラスを定義します。</p>
+
+<p>引数 <em>name</em> を受け取り、プロパティ <em>name</em> にセットします。</p>
+
+<p><em>numLegs</em> プロパティは、このコンストラクタの中ではセットしません。</p>
+
+<p><em>Emperor</em> は <em>Penguin</em> を継承します。</p>
+
+<p><em>emperor</em> オブジェクトを作成し、 <em>numLegs</em> を表示します。</p>
+
+<p>このプロパティは <em>Penguin</em> から継承されたものです。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Penguin</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Emperor class を作成し Penguin classを継承します</span>
+<span class="kd">function</span> <span class="nx">Emperor</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Emperor</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Penguin</span><span class="p">();</span>
+<span class="c1">// emperor オブジェクトを作成し number of legs を表示します。</span>
+<span class="kd">var</span> <span class="nx">emperor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Emperor</span><span class="p">(</span><span class="s2">&quot;Kate&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">emperor</span><span class="p">.</span><span class="nx">numLegs</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_13">食べ物は上! プロトタイプ連鎖</h4></h3>
+
+<p>ペンギンは動物で、皇帝ペンギンはペンギンで、
+そして皇帝ペンギンは動物です。</p>
+
+<p>JavaScriptの&quot;プロトタイプ　チェーン&quot;は、このことをよく知っています。</p>
+
+<p>JavaScriptが今いるクラスのメソッドやプロパティに見つからないものがあると、
+継承したクラスの中に定義されているかどうか調べに、プロトタイプ　チェーンを
+上へと探っていきます。この探索は最上位の
+ <em>Object.prototype</em> で止まるまで続きます。</p>
+
+<p>既定では、すべてのクラスは直接 <em>Object</em> を継承しています、
+ただし <em>Penguin</em> や <em>Emperor</em> のようにクラスの <em>prototype</em> を変更していなければ。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// original classes</span>
+<span class="kd">function</span> <span class="nx">Animal</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">numLegs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="nx">numLegs</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">isAlive</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Penguin</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">numLegs</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Emperor</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">saying</span> <span class="o">=</span> <span class="s2">&quot;Waddle waddle&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// set up the prototype chain </span>
+<span class="c1">// Animal -&gt; Penguin -&gt; Emperor</span>
+<span class="nx">Penguin</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Animal</span><span class="p">();</span>
+<span class="nx">Emperor</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Penguin</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">myEmperor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Emperor</span><span class="p">(</span><span class="s2">&quot;Jules&quot;</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">myEmperor</span><span class="p">.</span><span class="nx">saying</span> <span class="p">);</span> <span class="c1">// should print &quot;Waddle waddle&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">myEmperor</span><span class="p">.</span><span class="nx">numLegs</span> <span class="p">);</span> <span class="c1">// should print 2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">myEmperor</span><span class="p">.</span><span class="nx">isAlive</span> <span class="p">);</span> <span class="c1">// should print true</span>
+</code></pre></div>
+
+<hr>
+
+<h2 id="toc_14">プライバシーで</h2>
+
+<h3 id="toc_15">公開する</h3>
+
+<p>JavaScriptでは、オブジェクトのすべてのプロパティは自動的にパブリックになります。</p>
+
+<p><strong>パブリック</strong> とは、そのクラスの外部からアクセスできることです。</p>
+
+<p>このプロパティは、クラスが共有したい情報として考えられます。</p>
+
+<p><em>Person</em> クラスには、パブリックなプロパティの <em>firstName</em> , <em>lastName</em> , <em>age</em> 
+があります。</p>
+
+<p><em>john</em> のプロパティ <em>firstName</em> , <em>LastName</em> , <em>age</em> にアクセスして、
+ <em>myFirst</em> , <em>myLast</em> , <em>myAge</em> に設定しています。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span><span class="nx">last</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">first</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">last</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">john</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;Smith&#39;</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">myFirst</span> <span class="o">=</span> <span class="nx">john</span><span class="p">.</span><span class="nx">firstName</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">myLast</span> <span class="o">=</span> <span class="nx">john</span><span class="p">.</span><span class="nx">lastName</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">myAge</span> <span class="o">=</span> <span class="nx">john</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="toc_16">プライベート変数</h3>
+
+<p>オブジェクトが情報のいくつかを隠したい場合はどうするか？</p>
+
+<p>関数が、その関数の中からのみアクセスできるローカル変数を持てるように、
+      オブジェクトはプライベート変数を持てます。</p>
+
+<p><em>プライベート</em> 変数は、共有したくない情報であり、
+そのクラスの中からだけ直接アクセスできるものです。</p>
+
+<p><em>Person</em> クラスを変更して、プライベート変数 <em>bankBalance</em> を追加します。</p>
+
+<p>普通の変数のように見えますが、 <em>Person</em> コンストラクタの中に定義されていて、
+ <em>this</em> の代わりに <em>var</em> が使われています。</p>
+
+<p>これで <em>bankBalance</em> はプライベート変数になります。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span><span class="nx">last</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="nx">first</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span> <span class="o">=</span> <span class="nx">last</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+   <span class="kd">var</span> <span class="nx">bankBalance</span> <span class="o">=</span> <span class="mi">7500</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// create your Person </span>
+<span class="kd">var</span> <span class="nx">john</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Kate&quot;</span><span class="p">,</span><span class="s2">&quot;John&quot;</span><span class="p">,</span><span class="mi">33</span><span class="p">);</span>
+
+<span class="c1">// try to print his bankBalance</span>
+<span class="c1">// should print &quot;undefined&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">john</span><span class="p">.</span><span class="nx">bankBalance</span><span class="p">);</span> 
+</code></pre></div>
+
+<h3 id="toc_17">プライベート変数を扱う</h3>
+
+<p>プライベート変数に、そのクラスの外から直接アクセスできませんが、方法があります。</p>
+
+<p>プライベート変数の値を返すパブリック・メソッドを定義することができます。</p>
+
+<p><em>bankBalance</em> を返す <em>getBalance</em> メソッドを <em>Person</em> クラスに追加しています。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span><span class="nx">last</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="nx">first</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span> <span class="o">=</span> <span class="nx">last</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+   <span class="kd">var</span> <span class="nx">bankBalance</span> <span class="o">=</span> <span class="mi">7500</span><span class="p">;</span>
+  
+   <span class="k">this</span><span class="p">.</span><span class="nx">getBalance</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// your code should return the bankBalance</span>
+      <span class="k">return</span> <span class="nx">bankBalance</span><span class="p">;</span>
+   <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">john</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;Smith&#39;</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="c1">// should print &quot;undefined&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">john</span><span class="p">.</span><span class="nx">bankBalance</span><span class="p">);</span>
+
+<span class="cm">/* create a new variable myBalance </span>
+<span class="cm">               that calls getBalance() */</span>
+<span class="kd">var</span> <span class="nx">myBalance</span> <span class="o">=</span> <span class="nx">john</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myBalance</span><span class="p">);</span> <span class="c1">// should print 7500</span>
+</code></pre></div>
+
+<h3 id="toc_18">プライベートメソッド</h3>
+
+<p>メソッドも、クラスの外からアクセスできないプライベートにすることができます。</p>
+
+<p>前項の <em>this.</em> <em>getBalance</em> を <em>var getBalance</em> に変更すると、このメソッドはプライベートになります。これだけではまだ駄目です。</p>
+
+<p>プライベート　メソッドにアクセスする方法は、
+プライベート変数にアクセスするのと似ています。</p>
+
+<p>そのクラスにプライベート　メソッドを返す、パブリック　メソッド
+ <em>this.askTeller</em> を作成します。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span><span class="nx">last</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="nx">first</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span> <span class="o">=</span> <span class="nx">last</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+   <span class="kd">var</span> <span class="nx">bankBalance</span> <span class="o">=</span> <span class="mi">7500</span><span class="p">;</span>
+  
+   <span class="c1">// private method</span>
+   <span class="kd">var</span> <span class="nx">getBalance</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">bankBalance</span><span class="p">;</span>
+   <span class="p">};</span>
+       
+   <span class="c1">// public method</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">askTeller</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>  
+   <span class="k">return</span> <span class="nx">getBalance</span><span class="p">();</span>
+   <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">john</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;Smith&#39;</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="c1">// print &quot;undefined&quot; error</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">john</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">);</span>  
+<span class="c1">// puplic method -&gt; private method</span>
+<span class="kd">var</span> <span class="nx">myBalanceMethod</span> <span class="o">=</span> <span class="nx">john</span><span class="p">.</span><span class="nx">askTeller</span><span class="p">();</span> 
+<span class="kd">var</span> <span class="nx">myBalance</span> <span class="o">=</span> <span class="nx">myBalanceMethod</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myBalance</span><span class="p">);</span> <span class="c1">// print 7500</span>
+</code></pre></div>
+
+<h3 id="toc_19">引数を受け渡す</h3>
+
+<p><em>Person</em> クラス内の <em>askTeller</em> 関数を修正し
+直接口座情報を返すようにしてあります、
+しかし、 <em>bankBalance</em> を返すには、引数としてパスワードを必要としています。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span><span class="nx">last</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">=</span> <span class="nx">first</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span> <span class="o">=</span> <span class="nx">last</span><span class="p">;</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+   <span class="kd">var</span> <span class="nx">bankBalance</span> <span class="o">=</span> <span class="mi">7500</span><span class="p">;</span>
+  
+  <span class="c1">// public method</span>
+   <span class="k">this</span><span class="p">.</span><span class="nx">askTeller</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">pass</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nx">pass</span> <span class="o">==</span> <span class="mi">1234</span><span class="p">)</span> <span class="k">return</span> <span class="nx">bankBalance</span><span class="p">;</span>
+     <span class="k">else</span> <span class="k">return</span> <span class="s2">&quot;Wrong password.&quot;</span><span class="p">;</span>
+   <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">john</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;Smith&#39;</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="c1">//パスワードを引数にしてaskTellerにアクセス</span>
+<span class="kd">var</span> <span class="nx">myBalance</span> <span class="o">=</span> <span class="nx">john</span><span class="p">.</span><span class="nx">askTeller</span><span class="p">(</span><span class="s2">&quot;1234&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Function</h2>
+<p class="meta">31 May 2014</p>
+
+<div class="post">
+<h3 id="toc_0">関数の定義</h3>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="err">関数名</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="err">引数</span><span class="p">){</span>
+    <span class="c1">// code  </span>
+    <span class="k">return</span> <span class="err">戻り値</span>
+<span class="p">};</span>
+
+<span class="c1">//立方を求める関数 cube</span>
+<span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+    <span class="c1">// code  </span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span> 
+<span class="p">};</span>
+
+<span class="nx">cube</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// 125</span>
+</code></pre></div>
+
+<hr>
+
+<h3 id="toc_1">引数</h3>
+
+<p>引数は複数とることができる</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">multiply</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">multiply</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// 10</span>
+
+<span class="kd">var</span> <span class="nx">volume</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">h</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">w</span> <span class="o">*</span> <span class="nx">multiply</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span><span class="nx">h</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">volume</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> <span class="c1">// 24</span>
+</code></pre></div>
+
+<p>引数の型を関数定義時に指定する必要はない</p>
+
+<p>但し、上記 cube関数のように数字を扱う引数に文字を与えると <strong>cube(&quot;five&quot;)</strong></p>
+
+<p><strong>NaN</strong>(not a number)がもどる。</p>
+
+<p>引数が正しい型でない場合でも、戻り値を数値にしたい時は</p>
+
+<p><strong>typeof(x)</strong>で、引数の型チェックを行う。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">cube</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">);</span><span class="c1">// 0</span>
+</code></pre></div>
+
+<p>引数は関数内でのローカル変数である</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">w</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">volume</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">w</span> <span class="o">*</span> <span class="nx">l</span> <span class="o">*</span> <span class="nx">h</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">volume</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">w</span><span class="p">);</span> <span class="c1">// 15</span>
+</code></pre></div>
+
+<p>関数内にローカル変数を追加するには</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">volume</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">area</span> <span class="o">=</span> <span class="nx">w</span> <span class="o">*</span> <span class="nx">l</span><span class="p">;</span> <span class="c1">// ローカル変数定義</span>
+  <span class="k">return</span> <span class="nx">area</span> <span class="o">*</span> <span class="nx">h</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">area</span> <span class="o">=</span> <span class="mi">36</span><span class="p">;</span> <span class="c1">// グローバル変数</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">volume</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">));</span> <span class="c1">// 24</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">area</span><span class="p">);</span> <span class="c1">// 36</span>
+</code></pre></div>
+
+<p>関数の外の変数 <em>area</em> はグローバルで、
+プログラムのどこからでも参照できます。</p>
+
+<p>呼ばれた関数は、変数 <em>area</em> をローカルとして扱います。</p>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+

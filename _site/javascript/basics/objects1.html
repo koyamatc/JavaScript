@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Objects Ⅰ</h2>
+<p class="meta">29 May 2014</p>
+
+<div class="post">
+<h2 id="toc_0">オブジェクトとは何か？</h2>
+
+<p>オブジェクトは、現実世界の物や（人や銀行口座のような）実体を
+コードで表すことができ、関連のある情報を一まとめに保持しているもの</p>
+
+<h3 id="toc_1">オブジェクトを作るには</h3>
+
+<p><strong>var</strong> ＋ <strong>オブジェクト名</strong> ＋ <strong>=</strong> に </p>
+
+<ul>
+<li>開始の <strong>{</strong></li>
+<li>ここに情報</li>
+<li>終了の <strong>}</strong></li>
+</ul>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">Takeshi</span> <span class="o">=</span> <span class="p">{};</span><span class="c1">//情報を持っていないオブジェクト</span>
+</code></pre></div>
+
+<hr>
+
+<h2 id="toc_2">プロパティ</h2>
+
+<p>オブジェクトに含める各々の情報のことをプロパティと呼びます。</p>
+
+<p>プロパティには名前と値があります。 <strong>name : value</strong></p>
+
+<p>Takeshiの年齢(age)は　40才ならば <strong>age : 40</strong></p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">Spencer</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">age</span><span class="o">:</span> <span class="mi">22</span><span class="p">,</span>
+  <span class="nx">country</span><span class="o">:</span> <span class="s2">&quot;United States&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">Me</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">age</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+  <span class="nx">country</span><span class="o">:</span> <span class="s2">&quot;Japan&quot;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h3 id="toc_3">プロパティにアクセスするには</h3>
+
+<p><strong>dot notation</strong></p>
+
+<p><strong>オブジェクト名</strong> + <strong>.</strong> + <strong>プロパティ名</strong></p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">myAge</span> <span class="o">=</span> <span class="nx">Me</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">myCountry</span> <span class="o">=</span> <span class="nx">Me</span><span class="p">.</span><span class="nx">country</span><span class="p">;</span>
+</code></pre></div>
+
+<p><strong>bracket notation</strong></p>
+
+<p><strong>オブジェクト名[&quot;プロパティ名&quot;]</strong></p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">myAge</span> <span class="o">=</span> <span class="nx">Me</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">myCountry</span> <span class="o">=</span> <span class="nx">Me</span><span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">];</span>
+</code></pre></div>
+
+<hr>
+
+<h3 id="toc_4">別の作成方法</h3>
+
+<p><strong>{ }</strong> を使ってオブジェクトを作成する記法を</p>
+
+<p><strong>literal notation</strong> といいます。</p>
+
+<p>もう一つは、キーワード <strong>new</strong> を使う方法で</p>
+
+<p><strong>constructor</strong> を使いオブジェクトを作成する記法
+( <strong>constructor notation</strong> )として知られています。</p>
+
+<p><strong>new</strong> に続き <strong>Object()</strong> を記述し、空のオブジェクトを作ります。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">objectName</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+</code></pre></div>
+
+<p>この場合のプロパティの追加方法は</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">objectName</span><span class="p">.</span><span class="nx">propertyName</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Bob Smith&quot;</span><span class="p">;</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+
+<span class="c1">// literal notation</span>
+<span class="kd">var</span> <span class="nx">susan1</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Susan Jordan&quot;</span><span class="p">,</span>
+  <span class="nx">age</span><span class="o">:</span> <span class="mi">24</span>
+<span class="p">};</span>
+<span class="c1">// constructor notation</span>
+<span class="kd">var</span> <span class="nx">susan2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">susan2</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Susan Jordan&quot;</span><span class="p">;</span>
+<span class="nx">susan2</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">24</span><span class="p">;</span>
+</code></pre></div>
+
+<hr>
+
+<h2 id="toc_5">メソッド</h2>
+
+<p>プロパティがオブジェクトに関連した変数と考えられます。</p>
+
+<p><strong>メソッド</strong> はオブジェクトに関連した関数と言えます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Bob Smith&quot;</span><span class="p">;</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="c1">// method, setAge</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">setAge</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newAge</span><span class="p">){</span>
+  <span class="nx">bob</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">newAge</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// bobの歳を20にセットする</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">setAge</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+</code></pre></div>
+
+<p>メソッド <strong>setAge</strong> の定義は、プロパティの定義に似ています。</p>
+
+<p>大きな違いは、右辺に値ではなく関数を記述するところです。</p>
+
+<p>このメソッドは、与えられた引数で、プロパティ <strong>bob.age</strong> を設定します。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// method, setAge</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">setAge</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newAge</span><span class="p">){</span>
+  <span class="nx">bob</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">newAge</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>メソッドの呼び出しは関数と同じようにします。</p>
+
+<p><strong>ObjectName.methodName()</strong></p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// bobの歳を20にセットする</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">setAge</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_6">メソッドが重要な訳</h3>
+
+<ul>
+<li>プロパティの値を変更できる。</li>
+<li>関数は与えられた引数を基に計算を行いますが、       メソッドはオブジェクトのプロパティを基に計算ができる。</li>
+</ul>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="c1">// method, setAge</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">setAge</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newAge</span><span class="p">){</span>
+  <span class="nx">bob</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">newAge</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// method getYearOfBirth </span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">getYearOfBirth</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">2012</span> <span class="o">-</span> <span class="nx">bob</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span><span class="c1">//プロパティを使用</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h3 id="toc_7">キーワード <strong>this</strong></h3>
+
+<p>今までの <em>setAge</em> は, <em>bob</em> にとって <em>bob.age</em> を変更してくれるのでよかったのです。</p>
+
+<p>しかし、ほかの人にもこのメソッドを利用したい時にはどうすればよいでしょうか。</p>
+
+<p>新しいキーワード <em>this</em> を使い、多くのオブジェクトでメソッドが動作するようにします。</p>
+
+<p><em>this</em> は、プレースホルダーの役をして、     メソッドが実際に使われた時に、そのメソッドを呼び出したオブジェクトを指し示します。</p>
+
+<p><em>bob.setAge(50)</em> が呼ばれると、メソッド <em>setAge</em> の中の <em>this</em> は
+オブジェクト <em>bob</em> を指しているので <em>this.age</em> は <em>bob.age</em> ということになります。</p>
+
+<p>これで他のオブジェクトでも、一度定義したメソッドを再利用できます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// bobを作成する前に&quot;this&quot;を使ってメソッドを定義します</span>
+<span class="kd">var</span> <span class="nx">setAge</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newAge</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">newAge</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// bobを作ります</span>
+<span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+
+<span class="c1">// bobのプロパティ aga を設定</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+
+<span class="c1">// すでに作ったメソッドで、bobのメソッドを設定します</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">setAge</span> <span class="o">=</span> <span class="nx">setAge</span><span class="p">;</span>
+  
+<span class="c1">// bobの age を　50に変えます（メソッドの実行）</span>
+<span class="nx">bob</span><span class="p">.</span><span class="nx">setAge</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+
+<span class="c1">// susanを作成し age を 25　にする</span>
+<span class="kd">var</span> <span class="nx">susan</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">susan</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+<span class="c1">//定義済みメソッドを再使用しsusanに設定する</span>
+<span class="nx">susan</span><span class="p">.</span><span class="nx">setAge</span> <span class="o">=</span> <span class="nx">setAge</span><span class="p">;</span>
+<span class="c1">// Susanの age を 35 にする</span>
+<span class="nx">susan</span><span class="p">.</span><span class="nx">setAge</span><span class="p">(</span><span class="mi">35</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_8">別種のメソッド</h3>
+
+<p>オブジェクト <em>square</em> を作ります。</p>
+
+<p>正方形の1辺の長さを表すプロパティ <em>sideLength</em> を追加します。</p>
+
+<p>周囲の長さを計算するメソッド <em>calcPerimeter</em> を追加します。</p>
+
+<p>このメソッドは関数と同じように <em>return</em> で戻り値を受け取れます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">square</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">square</span><span class="p">.</span><span class="nx">sideLength</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="nx">square</span><span class="p">.</span><span class="nx">calcPerimeter</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sideLength</span> <span class="o">*</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// 面積を計算するメッソッドを追加</span>
+<span class="nx">square</span><span class="p">.</span><span class="nx">calcArea</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sideLength</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">sideLength</span><span class="p">;</span>   
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">square</span><span class="p">.</span><span class="nx">calcPerimeter</span><span class="p">();</span>
+</code></pre></div>
+
+<hr>
+
+<h2 id="toc_9">コンストラクタ</h2>
+
+<h3 id="toc_10">オブジェクト　コンストラクタ</h3>
+
+<p><em>bob = new Object( )</em> と書いた場合</p>
+
+<p><strong>Object</strong> という組込みコンストラクタを使っています。</p>
+
+<p>このコンストラクタはJavaScript言語にすでに定義されていて、
+プロパティもメソッドないオブジェクトを作るだけです。</p>
+
+<p>これは、その都度プロパティを追加しなければいけないことを意味しています。</p>
+
+<h3 id="toc_11">カスタム　コンストラクタ</h3>
+
+<p>オブジェクトごとに毎度毎度プロパティを追加するのは面倒なことです。</p>
+
+<p>そんな <em>object</em> コンストラクタを使う代わりに
+プロパティを持った独自のコンストラクタを作ることができます。</p>
+
+<p><em>Person</em> というコンストラクタは <em>Person</em> オブジェクトを作るために使われます。</p>
+
+<p>またキーワード <em>this</em>を使って 
+プロパティ <em>name</em> と <em>age</em> を定義し、与えられた引数の値にセットされます。</p>
+
+<p>このコンストラクタを使って <em>bob</em> と <em>susan</em> を作ります。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">//独自のコンストラクタ</span>
+<span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 独自のコンストラクタを使って bob と susan を作ります</span>
+<span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Bob Smith&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">susan</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Susan Jordan&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_12">更なるオプション</h3>
+
+<p>すべてのプロパティを引数を使って定義する必要はありません。</p>
+
+<p>今度のコンストラクタ <em>Person</em> では、
+ <em>species</em> が &quot;Homo Sapiens&quot; に設定されています。</p>
+
+<p>このことは、どの <em>Person</em> を作る時も
+ <em>species</em> は &quot;Homo Sapiens&quot; になるということです。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">species</span> <span class="o">=</span> <span class="s2">&quot;Homo Sapiens&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">sally</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Sally Bowles&quot;</span><span class="p">,</span><span class="mi">39</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">holden</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Holden Caulfield&quot;</span><span class="p">,</span><span class="mi">16</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_13">Constructors With Methods</h3>
+
+<p>コンストラクタにプロパティを設定できるのに加えて、
+メソッドを定義することもできます。つまり、オブジェクトを作成した段階で
+独自のメソッドも持っているということです。</p></p>
+
+<p><em>Rectangle</em> コンストラクタにはプロパティ <em>length, width</em> があります。</p>
+
+<p>そして、 <em>calcArea, calcPerimeter</em> メソッドがり、面積と周囲の長さを返します。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Rectangle</span><span class="p">(</span><span class="nx">length</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// own properties</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">length</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">width</span><span class="p">;</span>
+
+  <span class="c1">//own methods</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">calcArea</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+  <span class="p">};</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">calcPerimeter</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>  
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">rex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rectangle</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">area</span> <span class="o">=</span> <span class="nx">rex</span><span class="p">.</span><span class="nx">calcArea</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">perimeter</span> <span class="o">=</span> <span class="nx">rex</span><span class="p">.</span><span class="nx">calcPerimeter</span><span class="p">();</span>
+</code></pre></div>
+
+<hr>
+
+<h2 id="toc_14">ほかのツールとオブジェクトを組み合わせる</h2>
+
+<h3 id="toc_15">オブジェクトの配列</h3>
+
+<p>オブジェクトは数値型や文字列型と同じように1種の型です。
+なので、オブジェクトの配列を作ることができます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Person constructor</span>
+<span class="kd">function</span> <span class="nx">Person</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// an array of people : family</span>
+<span class="kd">var</span> <span class="nx">family</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;alice&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;bob&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;michelle&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;timmy&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_16">ループ</h3>
+
+<p>数値や文字列の配列と同様に、ループでオブジェクトの配列を使用できます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Person constructor</span>
+<span class="kd">function</span> <span class="nx">Person</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// an array of people : family</span>
+<span class="kd">var</span> <span class="nx">family</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;alice&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;bob&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;michelle&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+<span class="nx">family</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;timmy&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">family</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="toc_17">オブジェクトを関数に渡す</h4></h3>
+
+<p>オブジェクトを関数の引数にもできます。
+オブジェクトを受取った関数は、そのオブジェクトの
+プロパティやメソッドを使用できます。</p>
+
+<p>関数 <em>ageDifference</em> はオブジェクトを受取ることで
+そのプロパティ <em>age</em> を使用し年齢差を計算します。
+文字列である名前を受け渡しても計算はできません。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Person constructor</span>
+<span class="kd">function</span> <span class="nx">Person</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Personオブジェクトを引数にとる関数を作ります。</span>
+<span class="c1">// この関数は２人の齢の差を計算します。</span>
+<span class="kd">var</span> <span class="nx">ageDifference</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">person1</span><span class="p">,</span> <span class="nx">person2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">person1</span><span class="p">.</span><span class="nx">age</span> <span class="o">-</span> <span class="nx">person2</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">alice</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">billy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Billy&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+
+<span class="c1">// alice と billy の年齢差を関数を使って取得します。</span>
+<span class="kd">var</span> <span class="nx">diff</span> <span class="o">=</span> <span class="nx">ageDifference</span><span class="p">(</span><span class="nx">alice</span><span class="p">,</span><span class="nx">billy</span><span class="p">);</span>
+</code></pre></div>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+

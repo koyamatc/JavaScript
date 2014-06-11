@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Loops</h2>
+<p class="meta">27 May 2014</p>
+
+<div class="post">
+<p>ループは、&quot;for&quot; や &quot;while&quot; を含め、条件が合うまで一連の命令を繰り返す</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;h3 class=&quot;text-info&quot;&gt;Counting With Loops &lt;/h3&gt;
+  &lt;h4&gt;One to Five&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+    &lt;p&gt;
+    &lt;code&gt;for&lt;/code&gt;ループは
+    &lt;span class=&quot;text-success&quot;&gt;console.log&lt;/span&gt;
+    &lt;span class=&quot;text-error&quot;&gt;(i)&lt;/span&gt;を何度も実行します。
+    変数&lt;code&gt;i&lt;/code&gt;の値を変えることで、何回コードを実行するかを追跡しています。
+    &lt;/p&gt;
+    &lt;p&gt;
+    ループ変数は、変数&lt;code&gt;i&lt;/code&gt;の変え方を示しています。
+    &lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code&gt;i = 5&lt;/code&gt;- 最初の値&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;i &amp;lt;= 5&lt;/code&gt;- 止めるとき&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;i++&lt;/code&gt;  - コード実行後にカウントアップ&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;ループ内のコードは変数&lt;code&gt;i&lt;/code&gt;を読むことができます。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+  &lt;h4&gt;Counting by Twos&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+    &lt;p&gt;&lt;code&gt;i++&lt;/code&gt;は、&lt;code&gt;i&lt;/code&gt;を１増します。
+    では１より多くを増やすにはこれを使います。
+    &lt;/p&gt;
+    &lt;p&gt;&lt;code&gt;i += number&lt;/code&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Countdown&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;&lt;code&gt;for&lt;/code&gt;ループは、カウントを増やすだけでなく減らすこともできます。
+  変数&lt;code&gt;i&lt;/code&gt;の初期値を大きくして、それを小さくしながらループさせます。&lt;/p&gt;
+  &lt;p&gt;カウントを減らすには&lt;code&gt;i--&lt;/code&gt;や&lt;code&gt;i -= number&lt;/code&gt;を
+  使います。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">5</span> <span class="p">;</span><span class="nx">i</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="p">;</span><span class="nx">i</span><span class="o">--</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;hr class=&quot;bs-docs-separator&quot;&gt;
+  &lt;!-------------------------------------------------&gt;
+  &lt;h3 class=&quot;text-info&quot;&gt;Looping in Arrays and Strings &lt;/h3&gt;
+
+  &lt;h4&gt;Looping Through Arrays&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;ループをカウントして使えました。そしてループを使って
+  配列のすべての要素を扱うこともできます。&lt;/p&gt;
+  &lt;p&gt;配列の各要素は位置番号(index：指標)を持っています。
+  まず、配列の全要素に渡り繰返すことは、配列の全指標に渡り繰返すことです。
+  配列の指標は 0 から始まり、
+  配列の大きさ(&lt;code&gt;array.length&lt;/code&gt;)引く１で終わります。&lt;/p&gt;
+  &lt;p&gt;配列の指標番号(index number)がわかれば、
+  対応する配列要素(&lt;code&gt;array[indexNumber]&lt;/code&gt;)を取得できます。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;ferret&quot;</span><span class="p">];</span>
+
+<span class="c1">// Loop goes here</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">=</span><span class="nx">animals</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">animals</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+  &lt;h4&gt;Better, Stronger, Faster&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;コードはより早く動くほうがいいです。
+  学習中のコードは、十分に早いとは言えません。&lt;/p&gt;
+  &lt;p&gt;環境によって、&lt;code&gt;array.length&lt;/code&gt;を読むプロセスは少し遅くなります。&lt;/p&gt;
+  &lt;p&gt;&lt;code&gt;for&lt;/code&gt;ループの２番目、３番目のパラメータは、繰返し毎に評価されます。
+  その為、配列の要素が多い場合には時間がかかるかもしれません。&lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">animals</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  を追加し、式の評価を一度だけにします。
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;ferret&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">animals</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="c1">// Loop goes here</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">=</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">animals</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Looping Through Strings&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;文字列は、基本的に文字の配列です。配列の要素を扱うのと同様な方法で
+  文字列の個々の文字を取得することができます。
+  &lt;code&gt;string[indexNumber]&lt;/code&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">word</span> <span class="o">=</span> <span class="s2">&quot;code&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="c1">// Loop goes here</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="nx">word</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">word</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Building substring (Part 1)&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;substringはJavaScriptの関数です。文字列の一部を開始位置から終了位置
+  まで抜き取ります。この関数を&lt;code&gt;for&lt;/code&gt;ループで作ってみます。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Define substring here</span>
+<span class="kd">var</span> <span class="nx">substring</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="nx">start</span><span class="p">;</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">=</span><span class="nx">end</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">input</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">substring</span><span class="p">(</span><span class="s2">&quot;lorem ipsum dolor&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Building substring (Part 2)&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;正しい文字を抜き取れたので、抜き取った文字を繋いで１つの文字列を作り、
+  呼び出し元へ返しましょう。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="c1">// 空の文字列変数を用意する</span>
+<span class="kd">var</span> <span class="nx">subset</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="c1">// substring を定義する</span>
+<span class="kd">var</span> <span class="nx">substring</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="nx">start</span><span class="p">;</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">=</span><span class="nx">end</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="c1">//文字を繋げる</span>
+    <span class="nx">subset</span> <span class="o">+=</span> <span class="nx">input</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="c1">// 結果の文字列を返す</span>
+  <span class="k">return</span> <span class="nx">subset</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">substring</span><span class="p">(</span><span class="s2">&quot;lorem ipsum dolor&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+
+  &lt;hr class=&quot;bs-docs-separator&quot;&gt;
+  &lt;!-------------------------------------------------&gt;
+  &lt;h3 class=&quot;text-info&quot;&gt;While Loops &lt;/h3&gt;
+
+
+  &lt;h4&gt;Conditions!&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;&lt;code&gt;while&lt;/code&gt;ループは、条件が真の間、繰り返します。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;I only print once!&quot;</span><span class="p">);</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Imitation is the Sincerest Form of Flattery&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;&lt;code&gt;while&lt;/code&gt;ループはかなり柔軟です。
+  &lt;code&gt;for&lt;/code&gt;ループで出来ることは、できます。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="nx">i</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">=</span> <span class="mi">5</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+  <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Counting Odd Numbers, Again&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;&lt;code&gt;while&lt;/code&gt;ループでも&lt;code&gt;i&lt;/code&gt;に２を加えることができます。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="nx">i</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">=</span> <span class="mi">5</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+  <span class="nx">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+  &lt;h4&gt;Splitting Name (Part 1)&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;&lt;code&gt;while&lt;/code&gt;ループは、コードで何かを探さなければならない時に、
+  それがどの位置にあるかわからない場合、特に役に立ちます。&lt;/p&gt;
+  &lt;p&gt;名前の文字列を分割してファーストネームを取出す関数を作っていきます。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="c1">// 関数を定義</span>
+<span class="kd">var</span> <span class="nx">getFirstName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fullName</span><span class="p">){</span>
+  <span class="c1">// index変数を定義</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">// 文字列長の変数を定義</span>
+  <span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">fullName</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="c1">// 繰り返し処理</span>
+  <span class="k">while</span><span class="p">(</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="nx">length</span><span class="p">){</span>
+    <span class="c1">// １文字出力</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fullName</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span> <span class="p">;</span>
+
+<span class="nx">getFirstName</span><span class="p">(</span><span class="s2">&quot;Take Koyan&quot;</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Splitting Name (Part 2)&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;&lt;code&gt;while&lt;/code&gt;ループの条件は柔軟です。今回は２つの条件を
+  &amp;quot;&amp;&amp;&amp;quot;で組合せます。
+  ループの終了条件は、文字列が終わったか、空白があった時です。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="c1">// 関数を定義</span>
+<span class="kd">var</span> <span class="nx">getFirstName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fullName</span><span class="p">){</span>
+  <span class="c1">// 次の文字を保持する変数（先頭の文字を設定）</span>
+  <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">fullName</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="c1">// index変数</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">// 文字列長の変数</span>
+  <span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">fullName</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="c1">// 繰り返し</span>
+  <span class="k">while</span><span class="p">(</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">next</span> <span class="o">!==</span><span class="s2">&quot; &quot;</span><span class="p">){</span>
+    <span class="c1">// 文字出力</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fullName</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="c1">// indexのインクリメント</span>
+    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="c1">// 次の文字を代入</span>
+    <span class="nx">next</span> <span class="o">=</span> <span class="nx">fullName</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span> <span class="p">;</span>
+
+<span class="nx">getFirstName</span><span class="p">(</span><span class="s2">&quot;Take Koyan&quot;</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  &lt;/div&gt;
+  &lt;/div&gt;&lt;!-- /row --&gt;
+
+
+  &lt;h4&gt;Splitting Name (Part 3)&lt;/h4&gt;
+  &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+  &lt;p&gt;個々の文字を１つの文字列に繋げて、呼び出し元へ返しましょう。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-sm-5 col-md-5&quot;&gt;
+</code></pre></div>
+<div class="highlight"><pre><code class="javascript"><span class="c1">// 抜取った文字を格納する変数</span>
+<span class="kd">var</span> <span class="nx">firstName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="c1">// 関数定義</span>
+<span class="kd">var</span> <span class="nx">getFirstName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fullName</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">fullName</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">fullName</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="k">while</span><span class="p">(</span><span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">next</span> <span class="o">!==</span><span class="s2">&quot; &quot;</span><span class="p">){</span>
+    <span class="c1">// 文字列を繋げる</span>
+    <span class="nx">firstName</span> <span class="o">+=</span> <span class="nx">fullName</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="nx">next</span> <span class="o">=</span> <span class="nx">fullName</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="c1">// 文字列を返す</span>
+  <span class="k">return</span> <span class="nx">firstName</span><span class="p">;</span>
+<span class="p">}</span> <span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getFirstName</span><span class="p">(</span><span class="s2">&quot;Take Koyan&quot;</span><span class="p">));</span>
+</code></pre></div>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+
