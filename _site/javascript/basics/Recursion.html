@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Recursion</h2>
+<p class="meta">26 May 2014</p>
+
+<div class="post">
+<h3 id="toc_0">Counting Up With Recursion</h3>
+
+<p>関数の終了する条件に出会うまで、その関数自身を繰り返し呼ぶことで、</p>
+
+<p><em>while</em> ループをまねることができます。</p>
+
+<p>下の <em>countUp</em> はこのトリックを使って５まで数えています。</p>
+
+<p>この方法（再帰呼出）でループを作る時のことを考えましょう。</p>
+
+<p>繰返し中の各ステップでどんな動作が起きているのでしょう、</p>
+
+<p>そして最後は？。関数は各ステップである動作（ <em>countUp</em> は数字を表示する。）
+をし、自分自身を呼ぶことで、繰り返しの次のステップへと続けます。</p>
+
+<p>これを <strong>recursive case</strong> と呼びます。</p>
+
+<p>繰り返しの最終ステップでは、関数はその動作を行い、そして終了します。</p>
+
+<p>自分自身を呼ばないことで、繰り返しを終了します。</p>
+
+<p>これを <strong>base case</strong> と呼びます。</p>
+
+<p>データがどのように次のステップへと受け渡されるのか？</p>
+
+<p>再帰関数では、引数を使います。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">countUp</span><span class="p">(</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Recursive case</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">current</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">current</span><span class="p">);</span>
+        
+        <span class="cm">/* countUpを呼び、引数でもって情報を </span>
+<span class="cm">         受け渡すことで繰り返しを続けます。</span>
+<span class="cm">         `current + 1` は `for` loopの`i++` </span>
+<span class="cm">        にあたります。*/</span>
+        <span class="nx">countUp</span><span class="p">(</span><span class="nx">current</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// Base case</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">current</span> <span class="o">===</span> <span class="mi">5</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">current</span><span class="p">);</span>
+        
+        <span class="cm">/* 最終ステップ。ここから&quot;countUp&quot; を</span>
+<span class="cm">         呼ばないことで繰り返しをやめます。*/</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 関数を呼ぶことで繰り返しを開始します。</span>
+<span class="nx">countUp</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="toc_1">Counting Down With Recursion</h2>
+
+<p><em>for</em> ループでは、カウントダウンすることができました。</p>
+
+<p>再帰関数でも同じことができます繰り返します。</p>
+
+<p><em>current</em> が１より大きいとき自分自身を呼び出し繰り返します。</p>
+
+<p>受け渡す値は <em>current-1</em> </p>
+
+<p>繰り返しの終了は、 <em>current</em> が５になった時です。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">countDown</span><span class="p">(</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Recursive case</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">current</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">current</span><span class="p">);</span>
+        
+       <span class="nx">countDown</span><span class="p">(</span><span class="nx">current</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Base case</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">current</span> <span class="o">===</span> <span class="mi">1</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">current</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">countDown</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_2">Building &#39;substring&#39; With Recursion (Part 1)</h3>
+
+<p>再帰呼び出しを使うことで、 <em>for</em> ループよりもっと簡単に <em>substring</em> を作ることができます。</p>
+
+<p>今回作成する関数は３つの引数を取ります。</p>
+
+<p><em>all</em> :文字列全体</p>
+
+<p><em>start</em> :切り取る最初の文字位置</p>
+
+<p><em>end</em> :切り取る最後の文字位置</p>
+
+<p>今回の作成プランは、 <em>all</em> から１文字づつ抜き取り、
+ <em>start</em> を１づつ増加させていきます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">substring</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">all</span><span class="p">,</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">){</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">all</span><span class="p">[</span><span class="nx">start</span><span class="p">]);</span>
+
+<span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">start</span><span class="o">&gt;=</span><span class="nx">end</span><span class="p">){</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h3 id="toc_3">Building &#39;substring&#39; With Recursion (Part 2)</h3>
+
+<p><em>else</em> 文を追加し <strong>recursive case</strong> を書く。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">substring</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">all</span><span class="p">,</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">){</span>
+<span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">start</span><span class="o">&gt;=</span><span class="nx">end</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">all</span><span class="p">[</span><span class="nx">start</span><span class="p">]);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="c1">// recursive case</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">all</span><span class="p">[</span><span class="nx">start</span><span class="p">]);</span>
+    <span class="nx">substring</span><span class="p">(</span><span class="nx">all</span><span class="p">,</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nx">end</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">substring</span><span class="p">(</span><span class="s2">&quot;lorem ipsum dolor&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="toc_4">Building &#39;substring&#39; With Recursion (Part 3)</h3>
+
+<p>ループを基にした <em>substring</em> では、
+文字列に選択した１文字を付け加えていました。</p>
+
+<p>ですがここではできません。</p>
+
+<p>もし関数の外側に定義した文字列変数があれば、誰でも変更できます。</p>
+
+<p>その変数が関数の中に定義されていたとしても、
+ <em>substring</em> から再帰呼出しされた <em>substring</em> では
+この変数にアクセスできません。</p>
+
+<p>しかしこのことを文字列変数なしに行わなくてはなりません。</p>
+
+<p>そこで, <em>return</em> 文を使い、この処理のために文字を送ります。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">substring</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">all</span><span class="p">,</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">){</span>
+
+<span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">start</span><span class="o">&gt;=</span><span class="nx">end</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">all</span><span class="p">[</span><span class="nx">start</span><span class="p">];</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">all</span><span class="p">[</span><span class="nx">start</span><span class="p">]</span> <span class="o">+</span> <span class="nx">substring</span><span class="p">(</span><span class="nx">all</span><span class="p">,</span><span class="nx">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nx">end</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">substring</span><span class="p">(</span><span class="s2">&quot;lorem ipsum dolor&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
+</code></pre></div>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+

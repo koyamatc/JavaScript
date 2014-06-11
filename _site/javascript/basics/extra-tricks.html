@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Extra Tricks</h2>
+<p class="meta">25 May 2014</p>
+
+<div class="post">
+<h2 id="toc_0">Looping Through Objects</h2>
+
+<p>オブジェクトの中の情報すべてを表示するには、どうすればよいでしょう？</p>
+
+<p>配列では、繰り返し処理で指標を使いすべての要素名を取得できました。</p>
+
+<p>オブジェクトの場合も似ています。指標ではなくプロパティ名を持ち、
+つまり&quot;keys&quot;を持っています。</p>
+
+<p>特別な <em>for</em> ループを使って、オブジェクト内の
+すべてのキーを順番に処理します。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Morgan Jones&quot;</span><span class="p">,</span>
+    <span class="nx">telephone</span><span class="o">:</span> <span class="s2">&quot;(650) 777 - 7777&quot;</span><span class="p">,</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="s2">&quot;morgan.jones@example.com&quot;</span>
+<span class="p">};</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">propertyName</span> <span class="k">in</span> <span class="nx">person</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">propertyName</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nx">person</span><span class="p">[</span><span class="nx">propertyName</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="toc_1">Nesting &#39;for&#39; Loops</h3>
+
+<p>ループの入れ子に制限はありません。</p>
+
+<p><em>for</em> ループの中に <em>while</em> ループ、</p>
+
+<p><em>for</em> ループの中に <em>for</em> ループ、などなど。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">3</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">j</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="toc_2">Printing Out Tables (Part 1)</h2>
+
+<p>ここでの小技は、配列の中に配列を置くというものです。</p>
+
+<p>下のコードでは、この技を使ってスプレッドシートのテーブルのようなデータ形式を表現しています。</p>
+
+<p>配列　*table* は、内部に複数の配列を持っています。</p>
+
+<p>中の配列それぞれは行を表します。各配列の要素はセル表します。
+入れ子のループを使って、 <em>table</em> の各要素にアクセスします。</p>
+
+<p>変数 <em>rows</em> を定義して、 <em>table</em> の大きさをセットします。</p>
+
+<p>変数 <em>r</em> は、 <em>for</em> ループの繰り返しに使用します。</p>
+
+<p>まずは変数 <em>r</em> を表示してみます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">table</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;Person&quot;</span><span class="p">,</span>  <span class="s2">&quot;Age&quot;</span><span class="p">,</span>  <span class="s2">&quot;City&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Sue&quot;</span><span class="p">,</span>     <span class="mi">22</span><span class="p">,</span>     <span class="s2">&quot;San Francisco&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Joe&quot;</span><span class="p">,</span>     <span class="mi">45</span><span class="p">,</span>     <span class="s2">&quot;Halifax&quot;</span><span class="p">]</span>
+<span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">rows</span> <span class="o">=</span> <span class="nx">table</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">r</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="nx">r</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">r</span> <span class="o">&lt;</span> <span class="nx">rows</span><span class="p">;</span><span class="nx">r</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="toc_3">Printing Out Tables (Part 2)</h2>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">table</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;Person&quot;</span><span class="p">,</span>  <span class="s2">&quot;Age&quot;</span><span class="p">,</span>  <span class="s2">&quot;City&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Sue&quot;</span><span class="p">,</span>     <span class="mi">22</span><span class="p">,</span>     <span class="s2">&quot;San Francisco&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Joe&quot;</span><span class="p">,</span>     <span class="mi">45</span><span class="p">,</span>     <span class="s2">&quot;Halifax&quot;</span><span class="p">]</span>
+<span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">rows</span> <span class="o">=</span> <span class="nx">table</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">r</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="nx">r</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">r</span> <span class="o">&lt;</span> <span class="nx">rows</span><span class="p">;</span><span class="nx">r</span><span class="o">++</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">c</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">cells</span> <span class="o">=</span> <span class="nx">table</span><span class="p">[</span><span class="nx">r</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">rowText</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="nx">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">c</span> <span class="o">&lt;</span> <span class="nx">cells</span><span class="p">;</span><span class="nx">c</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">rowText</span> <span class="o">+=</span> <span class="nx">table</span><span class="p">[</span><span class="nx">r</span><span class="p">][</span><span class="nx">c</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">c</span> <span class="o">&lt;</span> <span class="nx">cells</span><span class="p">){</span>
+      <span class="nx">rowText</span> <span class="o">+=</span> <span class="s2">&quot;  &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">rowText</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="toc_4">Breaking Out</h2>
+
+<p>ループをある条件で、即座に終了したいときに
+ <em>break</em> 文が使えます。
+<em>for,while</em> 両方で使えますが、再帰呼出では使えません。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;I only print once!&quot;</span><span class="p">);</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+
