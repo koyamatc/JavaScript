@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+  <link href="/css/d3.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Iterator & Generator</h2>
+<p class="meta">24 May 2014</p>
+
+<div class="post">
+<h2 id="toc_0">Iterator</h2>
+
+<p>イテレータは、一連の処理の中で、集合体のアイテム一つずつにアクセスする方法を知っているオブジェクトです。　　</p>
+
+<p>Javascriptにおいては、一連の処理中の次のアイテムを返す next()メソッドを提供します。
+このメソッドは一連の処理が終了した場合に、任意で StopIteration 例外を発生させることができます。</p>
+
+<p>イテレータオブジェクトは作成されると、next() を繰り返し呼び出すことで明示的に、または JavaScript の for...in および for each コンストラクタで暗黙的に使用されることができます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// 単純なイテレータは、Iterator() 関数を用いて作成できます</span>
+<span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span> <span class="nx">birthYear</span><span class="o">:</span> <span class="mi">1995</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">Iterator</span><span class="p">(</span><span class="nx">lang</span><span class="p">);</span>
+
+<span class="cm">/* 初期化後は、オブジェクトにあるキーと値のペアへ次々にアクセスするために next() メソッドを呼び出すことができます */</span>
+<span class="kd">var</span> <span class="nx">pair</span> <span class="o">=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// ペアは [&quot;name&quot;, &quot;JavaScript&quot;]</span>
+<span class="nx">pair</span> <span class="o">=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// ペアは [&quot;birthYear&quot;, 1995]</span>
+<span class="nx">pair</span> <span class="o">=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// StopIteration 例外が発生</span>
+</code></pre></div>
+
+<div class="highlight"><pre><code class="javascript"><span class="cm">/* next() メソッドを直接呼び出す代わりに、for...in ループを使用できます。</span>
+<span class="cm">ループは StopIteration 例外が発生したときに、自動的に終了します。 */</span>
+
+<span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">Iterator</span><span class="p">(</span><span class="nx">lang</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">pair</span> <span class="k">in</span> <span class="nx">it</span><span class="p">)</span>
+  <span class="nx">print</span><span class="p">(</span><span class="nx">pair</span><span class="p">);</span> <span class="c1">// 各々の [key, value] のペアを次々に表示</span>
+
+<span class="cm">/* オブジェクトのキーに対してのみ反復処理を行いたい場合は、Iterator() 関数の第 2 引数に true を渡します */</span>
+
+<span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">Iterator</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">it</span><span class="p">)</span>
+  <span class="nx">print</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span> <span class="c1">// 各々の key を次々に表示</span>
+</code></pre></div>
+
+<p>オブジェクトの内容へのアクセスに Iterator() を使用することの利点は、Object.prototype に追加した独自のプロパティが一連の処理に含まれないことです。</p>
+
+<h3 id="toc_1">Iterator() は、配列にも同様に使用できます:</h3>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">langs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;C++&#39;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">Iterator</span><span class="p">(</span><span class="nx">langs</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">pair</span> <span class="k">in</span> <span class="nx">it</span><span class="p">)</span>
+  <span class="nx">print</span><span class="p">(</span><span class="nx">pair</span><span class="p">);</span> <span class="c1">// 各々の [index, language] のペアを次々に表示</span>
+</code></pre></div>
+
+<p>オブジェクトと同様に、第 2 引数に true を渡すと配列のインデックスへ反復処理を行うようになります:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">langs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;C++&#39;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">Iterator</span><span class="p">(</span><span class="nx">langs</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">it</span><span class="p">)</span>
+  <span class="nx">print</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// 0, 1, 2 と出力</span>
+</code></pre></div>
+
+<p>for ループ内で let キーワードを用いて、ブロックスコープに収めた変数をインデックスと値に割り当てることもでき、インデックスと値を分割して代入できます:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">langs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;C++&#39;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">Iterator</span><span class="p">(</span><span class="nx">langs</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">i</span><span class="p">,</span> <span class="nx">lang</span><span class="p">]</span> <span class="k">in</span> <span class="nx">it</span><span class="p">)</span>
+ <span class="nx">print</span><span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nx">lang</span><span class="p">);</span> <span class="c1">// &quot;0: JavaScript&quot; などを出力</span>
+</code></pre></div>
+
+<h3 id="toc_2">独自のイテレータの定義</h3>
+
+<p>アイテムの集合体を表す一部のオブジェクトは、特定の方法で反復処理を行うべきです。</p>
+
+<ul>
+<li>範囲のオブジェクトの反復処理では、その範囲内の数値を次々に返すべきです。</li>
+<li>木構造の葉は、深さ優先または幅優先の探索法でたどることができます。</li>
+<li>データベースのクエリの出力を表すオブジェクトの反復処理では、出力セットの全体が一つの配列に収められていない場合でも、行を次々に返すべきです。</li>
+<li>無限の数列 (フィボナッチ数列など) の反復処理では、無限の長さのデータ構造を作成することなく結果を次々に返せるべきです。</li>
+</ul>
+
+<p>JavaScript では独自の反復処理ロジックのコードを記述し、それをオブジェクトに結びつけることができます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// 下限値と上限値を保管する、シンプルな Range オブジェクトを作成します。</span>
+<span class="kd">function</span> <span class="nx">Range</span><span class="p">(</span><span class="nx">low</span><span class="p">,</span> <span class="nx">high</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">low</span> <span class="o">=</span> <span class="nx">low</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">high</span> <span class="o">=</span> <span class="nx">high</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cm">/*</span>
+<span class="cm"> ここで、上記の範囲に含まれる整数の並びを返す独自のイテレータを作成します。</span>
+<span class="cm">イテレータのインタフェースは、一連のデータからアイテムを返すか StopIteration 例外を投げる、next() メソッドの提供が必要です。 </span>
+<span class="cm">*/</span>
+<span class="kd">function</span> <span class="nx">RangeIterator</span><span class="p">(</span><span class="nx">range</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">range</span> <span class="o">=</span> <span class="nx">range</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">range</span><span class="p">.</span><span class="nx">low</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">RangeIterator</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">current</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">range</span><span class="p">.</span><span class="nx">high</span><span class="p">)</span>
+    <span class="k">throw</span> <span class="nx">StopIteration</span><span class="p">;</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">current</span><span class="o">++</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="cm">/*</span>
+<span class="cm">RangeIterator は range のインスタンスとともにインスタンス化され、一連のデータ内でどこまで進んだかを追跡するための current プロパティを維持します。</span>
+<span class="cm">そして、RangeIterator を Range オブジェクトへ関連づけるために、Range へ特別なメソッドである __iterator__ を追加する必要があります。このメソッドは Range のインスタンスで反復処理を行う際に呼び出され、反復処理のロジックを実装する RangeIterator のインスタンスを返します。</span>
+<span class="cm">*/</span>
+<span class="nx">Range</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__iterator__</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">RangeIterator</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="c1">// 独自のイテレータでフックすることにより、range のインスタンスでの反復処理を以下のように行うことができます:</span>
+
+<span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">range</span><span class="p">)</span>
+  <span class="nx">print</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// 順に 3, 4, 5 を出力</span>
+</code></pre></div>
+
+<h3 id="toc_3">ジェネレータ: イテレータ構築のよりよい方法</h3>
+
+<p>独自のイテレータは役に立つ手段ですが、内部の状態を明示的に管理する必要があることから、イテレータの作成では注意深くプログラミングすることが求められます。ジェネレータは、強力な代替手段を提供します。これは、自身の状態を管理できる関数一つを記述することにより、反復処理のアルゴリズムの定義を可能にします。</p>
+
+<p>ジェネレータは、イテレータの生成元として働く特別な種類の関数です。1 つ以上の yield 式を含む場合、関数はジェネレータになります。</p>
+
+<p>註: HTML において、yield キーワードは &lt;script type=&quot;application/javascript;version=1.7&quot;&gt; (または上位バージョン) のブロックで囲まれたコードブロックでのみ使用可能です。XUL の script タグは、この機能の使用に際して特別なブロックを必要としません。
+ジェネレータ関数が関数本体から呼び出されても、すぐには実行されません。代わりに、ジェネレータ・イテレータオブジェクトを返します。各ジェネレータ・イテレータの next() メソッドを呼び出すと、関数の本体を次の yield 式まで実行し、その結果を返します。関数の終端または return 文に達すると、StopIteration 例外が発生します。</p>
+
+<p>この動作は、次の例でよく表現されています:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">simpleGenerator</span><span class="p">(){</span>
+  <span class="nx">yield</span> <span class="s2">&quot;first&quot;</span><span class="p">;</span>
+  <span class="nx">yield</span> <span class="s2">&quot;second&quot;</span><span class="p">;</span>
+  <span class="nx">yield</span> <span class="s2">&quot;third&quot;</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="nx">yield</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">simpleGenerator</span><span class="p">();</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// &quot;first&quot; を出力</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// &quot;second&quot; を出力</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// &quot;third&quot; を出力</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 0 を出力</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 1 を出力</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 2 を出力</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// StopIteration が発生</span>
+</code></pre></div>
+
+<p>ジェネレータ関数はクラスの <strong>iterator</strong> メソッドとして直接使用することができ、独自のイテレータを作成するために必要なコードの量が劇的に減ります。以下は前出の Range を、ジェネレータを使用して書き直したものです:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">Range</span><span class="p">(</span><span class="nx">low</span><span class="p">,</span> <span class="nx">high</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">low</span> <span class="o">=</span> <span class="nx">low</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">high</span> <span class="o">=</span> <span class="nx">high</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Range</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__iterator__</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">low</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">high</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="nx">yield</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">range</span><span class="p">)</span>
+  <span class="nx">print</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// 順に 3, 4, 5 を出力</span>
+</code></pre></div>
+  
+
+<p>すべてのジェネレータが終了するわけではありません。無限の並びを表すジェネレータを作成することができます。次のジェネレータはフィボナッチ数列を実装しており、各要素は自身の前の要素 2 つの値を合計したものです:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">fibonacci</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">fn1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">fn2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">fn2</span><span class="p">;</span>
+    <span class="nx">fn2</span> <span class="o">=</span> <span class="nx">fn1</span><span class="p">;</span>
+    <span class="nx">fn1</span> <span class="o">=</span> <span class="nx">fn1</span> <span class="o">+</span> <span class="nx">current</span><span class="p">;</span>
+    <span class="nx">yield</span> <span class="nx">current</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">sequence</span> <span class="o">=</span> <span class="nx">fibonacci</span><span class="p">();</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 1</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 1</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 2</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 3</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 5</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 8</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// 13</span>
+</code></pre></div>
+
+<p>ジェネレータ関数は引数をとることができ、それは始めに関数が呼び出されるときに結びつけられます。ジェネレータは return 文で (StopIteration 例外を発生させて) 終了することができます。次の fibonacci() は省略可能な limit 引数を持つ派生形で、limit が渡された場合に終了するでしょう。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="nx">limit</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">fn1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">fn2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">fn2</span><span class="p">;</span>
+    <span class="nx">fn2</span> <span class="o">=</span> <span class="nx">fn1</span><span class="p">;</span>
+    <span class="nx">fn1</span> <span class="o">=</span> <span class="nx">fn1</span> <span class="o">+</span> <span class="nx">current</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">limit</span> <span class="o">&amp;&amp;</span> <span class="nx">current</span> <span class="o">&gt;</span> <span class="nx">limit</span><span class="p">)</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="nx">yield</span> <span class="nx">current</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="toc_4">高度なジェネレータ</h3>
+
+<p>ジェネレータは生み出す値を要求に応じて計算しており、多くの計算が必要な一連のデータを効率的に表現したり、前出のとおり無限に連なるデータを表現したりすることを可能にします。</p>
+
+<p>ジェネレータ・イテレータオブジェクトは next()</p>
+
+<p>メソッドに加えて、ジェネレータの内部状態を変更するために使用できる send() メソッドも持っています。send() で渡された値は、ジェネレータが最後に立ち止まった yield の結果として扱われます。特定の値を渡すため send() を使用する前に、少なくとも 1 回 next() を呼び出してジェネレータを開始する必要があります。</p>
+
+<p>次の fibonacci ジェネレータは、数列をリスタートするために send() を使用しています:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">fibonacci</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">fn1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">fn2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">fn2</span><span class="p">;</span>
+    <span class="nx">fn2</span> <span class="o">=</span> <span class="nx">fn1</span><span class="p">;</span>
+    <span class="nx">fn1</span> <span class="o">=</span> <span class="nx">fn1</span> <span class="o">+</span> <span class="nx">current</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">reset</span> <span class="o">=</span> <span class="nx">yield</span> <span class="nx">current</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">reset</span><span class="p">){</span>
+        <span class="nx">fn1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">fn2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">sequence</span> <span class="o">=</span> <span class="nx">fibonacci</span><span class="p">();</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 1</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 1</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 2</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 3</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 5</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 8</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 13</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span> <span class="c1">// 1</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 1</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 2</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">sequence</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span>     <span class="c1">// 3</span>
+</code></pre></div>
+
+<p>注意: 興味深い点として、send(undefined) の呼び出しは next() と等価であることがあります。しかし、send() を呼び出す際に undefined 以外の値で新たなジェネレータを開始すると、TypeError 例外が発生するでしょう。</p>
+
+<p>ジェネレータの throw() メソッドを呼び出して発生させる例外を渡すことで、ジェネレータに例外を発生させることができます。この例外はジェネレータが現在止まっているコンテキストから、現在止まっている yield が throw value 文に替わったかのように投げられます。</p>
+
+<p>発生した例外の処理中に yield に出くわさない場合は、例外が throw() の呼び出しを通して伝播し、その後の next() の呼び出しで StopIteration が発生することになります。</p>
+
+<p>ジェネレータは、自身を閉じさせる close() メソッドを持っています。ジェネレータを閉じることの効果は以下のとおりです:</p>
+
+<p>実行中のジェネレータ関数でアクティブなすべての finally 節が実行されます
+finally 節で StopIteration 以外の例外が発生すると、その例外は close() メソッドの呼び出し元に伝播します。
+ジェネレータが終了します。</p>
+
+<h3 id="toc_5">ジェネレータ式</h3>
+
+<p>JavaScript 1.8 で導入
+配列内包の重大な欠点は、メモリ内に新しい配列全体を構築してしまうことです。配列内包への入力自体が小さい配列であるときのオーバーヘッドは小さいのですが、入力が大きな配列や処理の多い (あるいは本当に無限の) ジェネレータであるときの配列の新規作成は問題になる場合があります。</p>
+
+<p>ジェネレータはアイテムを必要なときに要求に応じて算出するため、一連のデータの計算処理を軽減します。ジェネレータ式は構文的に、配列内包とほとんど同じです。こちらは中括弧の代わりに丸括弧を使用して (また、for each...in の代わりに for...in を使用)、配列を構築する代わりに、すぐには実行されないジェネレータを作成します。これらは、ジェネレータ作成を簡略化した構文と考えることができます。</p>
+
+<p>整数の大規模な数列に対して反復処理を行うイテレータ it を想定します。数列の値を 2 倍にする反復処理を行う、新たなイテレータを作成したいとします。配列内包では、2 倍の値を含むのに十分な配列をメモリ内に作成します:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">doubles</span> <span class="o">=</span> <span class="p">[</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">it</span><span class="p">)];</span>
+</code></pre></div>
+
+<p>一方ジェネレータ式は、必要なときに要求に応じて 2 倍の値を生成するイテレータを作成します:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">it2</span> <span class="o">=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">it</span><span class="p">));</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">it2</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// it の最初の値を 2 倍にする</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">it2</span><span class="p">.</span><span class="nx">next</span><span class="p">());</span> <span class="c1">// it の 2 番目の値を 2 倍にする</span>
+</code></pre></div>
+
+<p>ジェネレータ式が関数の引数として使用されるときは、関数の呼び出しで使用される丸括弧によりジェネレータ式の外側の丸括弧を省略できます:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">doSomething</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">it</span><span class="p">));</span>
+</code></pre></div>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+
