@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+  <title>JavaScript</title>
+  <!-- Le styles -->
+  <link href="/css/bootstrapx.css" rel="stylesheet">
+  <link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link href="/css/logo.css" rel="stylesheet">
+  <link href="/css/jklmain.css" rel="stylesheet">
+  <link href="/css/monokai.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <div class="row">
+      <div class="col-sm-5 col-md-5">
+        <div id="logo"><span>koyamatch.com</span></div>
+      </div>
+      <div class="col-sm-7 col-md-7">
+        <h1 id="subtitle" class="text-right">JavaScript</h1>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-offset-4">
+          <a href="/"><h4><span class="glyphicon glyphicon-home text-white"> home</span></h4></a>
+          </div>
+        </div>  
+      </div>
+    </div><!--/row-->
+
+    
+    <div class="row"><div class="col-sm-4">
+  <a href="/javascript/"><h4><span class="glyphicon glyphicon-arrow-left text-white"> JavaScript home</span></h4></a>
+
+</div></div>
+<h2>Closure</h2>
+<p class="meta">23 May 2014</p>
+
+<div class="post">
+<h2 id="toc_0">　クロージャの使用</h2>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Mozilla&quot;</span><span class="p">;</span> <span class="c1">// ローカル変数</span>
+
+  <span class="kd">function</span> <span class="nx">displayName</span><span class="p">()</span> <span class="p">{</span><span class="err">　</span><span class="c1">//　init内部関数定義</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="err">　</span><span class="c1">// この関数の外側で定義された name は利用できる</span>
+  <span class="p">}</span>
+  <span class="nx">displayName</span><span class="p">();</span> <span class="c1">// 内部関数の呼び出し</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p><button id="run01" class="btn btn-info">Run</button></p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">makeFunc</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Mozilla&quot;</span><span class="p">;</span>
+
+  <span class="kd">function</span> <span class="nx">displayName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">displayName</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">myFunc</span> <span class="o">=</span> <span class="nx">makeFunc</span><span class="p">();</span>
+
+<span class="nx">myFunc</span><span class="p">();</span>
+</code></pre></div>
+
+<p><button id="run02" class="btn btn-info">Run</button>
+このコードも、前例と全く同じように動作します。前の例とは異なる点は、内部関数 displayName() がそれが実行される前に外部関数から返されているという事です。</p>
+
+<p>通常は、関数内部のローカル変数はその関数が実行されている間だけ存在します。一旦 makeFunc() の実行が完了したら、name 変数はもう必要とされなくなると考えた方が筋は通っています。ただこのコードが期待したとおりに動くという事は、これは明らかに事実と異なります。</p>
+
+<p>この謎に対する解答は、myFunc がクロージャになったということです。クロージャは関数とその関数が作られた環境という 2 つのものが一体となった特殊なオブジェクトです。この環境は、クロージャが作られた時点でスコープ内部にあったあらゆる変数によって構成されています。この場合、myFunc はそれが作られた時に存在していた displayName 関数と 文字列 &quot;Mozilla&quot; を取り込んだクロージャです。
+<script src="/js/jquery.js"></script>
+<script>
+$(&quot;#run01&quot;).on(&quot;click&quot;, function(){</p>
+
+<p>init();</p>
+
+<p>function init() {
+    var name = &quot;Mozilla&quot;;</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">function displayName() {
+  alert(name);
+}
+displayName();
+</code></pre></div>
+<p>}
+});</p>
+
+<p>$(&quot;#run02&quot;).on(&quot;click&quot;, function(){</p>
+
+<p>function makeFunc() {
+    var name = &quot;Mozilla&quot;;</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">function displayName() {
+  alert(name);
+};
+return displayName;
+</code></pre></div>
+<p>};</p>
+
+<p>var myFunc = makeFunc();</p>
+
+<p>myFunc();
+});</p>
+
+<p></script></p>
+
+</div>
+
+ 
+        <div class="row">
+      <footer>
+        <hr>
+        <div class="col-sm-8">
+          <p>&copy;koyamatc@koyamatch.com since 2002</p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://github.com/koyamatc">github.com/koyamatc</a></p>
+        </div>
+        <div class="col-sm-2">
+          <p><a href="https://www.facebook.com/koyamatc">www.facebook.com/koyamatc</a></p>
+        </div>
+      </footer>
+    </div>
+
+  </div><!-- container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.lettering-0.6.1.min.js"></script>
+  <script src="/js/logo.js"></script>
+</body>
+</html>
+
