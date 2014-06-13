@@ -3,11 +3,9 @@ title: JavaScript
 layout: default
 ---
 
-#JavaScript
+#JavaScriptの学習
 
 - - -
-
-####JavaScript 学習
 
 <div class="row">
 	<div class="col-sm-3">
