@@ -38,12 +38,12 @@
 <p class="meta">23 May 2014</p>
 
 <div class="post">
-<h2 id="toc_0">　クロージャの使用</h2>
+<h2 id="toc_0">　クロージャの使用　（MDNより)</h2>
 
 <div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Mozilla&quot;</span><span class="p">;</span> <span class="c1">// ローカル変数</span>
 
-  <span class="kd">function</span> <span class="nx">displayName</span><span class="p">()</span> <span class="p">{</span><span class="err">　</span><span class="c1">//　init内部関数定義</span>
+  <span class="kd">function</span> <span class="nx">displayName</span><span class="p">()</span> <span class="p">{</span><span class="err">　</span><span class="c1">//　initの内部関数定義</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="err">　</span><span class="c1">// この関数の外側で定義された name は利用できる</span>
   <span class="p">}</span>
   <span class="nx">displayName</span><span class="p">();</span> <span class="c1">// 内部関数の呼び出し</span>
@@ -53,58 +53,482 @@
 <p><button id="run01" class="btn btn-info">Run</button></p>
 
 <div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">makeFunc</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Mozilla&quot;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;Mozilla&quot;</span><span class="p">;</span> <span class="c1">// ローカル変数</span>
 
-  <span class="kd">function</span> <span class="nx">displayName</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">displayName</span><span class="p">()</span> <span class="p">{</span><span class="err">　</span><span class="c1">//　initの内部関数定義</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
   <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">displayName</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">displayName</span><span class="p">;</span><span class="err">　</span><span class="c1">// 内部関数が makeFuncから返される</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">myFunc</span> <span class="o">=</span> <span class="nx">makeFunc</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">myFunc</span> <span class="o">=</span> <span class="nx">makeFunc</span><span class="p">();</span> <span class="c1">// makeFunc()の返り値をmyFuncへ代入</span>
 
-<span class="nx">myFunc</span><span class="p">();</span>
+<span class="nx">myFunc</span><span class="p">();</span> <span class="c1">// 関数の実行</span>
 </code></pre></div>
 
-<p><button id="run02" class="btn btn-info">Run</button>
-このコードも、前例と全く同じように動作します。前の例とは異なる点は、内部関数 displayName() がそれが実行される前に外部関数から返されているという事です。</p>
+<p><button id="run02" class="btn btn-info">Run</button></p>
 
-<p>通常は、関数内部のローカル変数はその関数が実行されている間だけ存在します。一旦 makeFunc() の実行が完了したら、name 変数はもう必要とされなくなると考えた方が筋は通っています。ただこのコードが期待したとおりに動くという事は、これは明らかに事実と異なります。</p>
+<p>前の例とは異なる点は、内部関数 displayName() がそれが実行される前に外部関数から返されているという事です。</p>
 
-<p>この謎に対する解答は、myFunc がクロージャになったということです。クロージャは関数とその関数が作られた環境という 2 つのものが一体となった特殊なオブジェクトです。この環境は、クロージャが作られた時点でスコープ内部にあったあらゆる変数によって構成されています。この場合、myFunc はそれが作られた時に存在していた displayName 関数と 文字列 &quot;Mozilla&quot; を取り込んだクロージャです。
+<p>通常は、関数内部のローカル変数はその関数が実行されている間だけ存在します。
+一旦 makeFunc() の実行が完了したら、name 変数はもう必要とされなくなると考えた方が筋は通っています。
+ただこのコードが期待したとおりに動くという事は、これは明らかに事実と異なります。</p>
+
+<p>この謎に対する解答は、myFunc が　__クロージャ__ になったということです。
+クロージャは関数とその関数が作られた環境という 2 つのものが一体となった特殊なオブジェクトです。
+この環境は、クロージャが作られた時点でスコープ内部にあったあらゆる変数によって構成されています。
+この場合、myFunc はそれが作られた時に存在していた displayName 関数と 文字列 &quot;Mozilla&quot; を取り込んだクロージャです。</p>
+
+<p>ここにもう少し面白い例があります。makeAdder 関数です。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">makeAdder</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">add5</span> <span class="o">=</span> <span class="nx">makeAdder</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">add10</span> <span class="o">=</span> <span class="nx">makeAdder</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">add5</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> <span class="c1">// 7 と表示される</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">add10</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> <span class="c1">// 12 と表示される</span>
+</code></pre></div>
+
+<p><button id="run03" class="btn btn-info">Run add5(2)</button>
+<button id="run04" class="btn btn-info">Run add10(2)</button></p>
+
+<p>この例では、1 つの引数 x を取り、新しい関数を返す makeAdder(x) 関数を定義しています。
+返される関数は 1 つの引数 y を取り、x と y の和を返します。</p>
+
+<p>要するに、makeAdderは関数ファクトリです。
+これは与えられた引数に特定の値を足す関数を作ります。
+上の例では関数ファクトリを使って 2 つの新しい関数を作成しています。 
+1 つは引数に 5 を加えるもので、もう 1 つは 10 を加えるものです。</p>
+
+<p>add5 と add10 は両方ともクロージャです。
+両者は同じ関数本体の定義を共有していますが、保有している環境は異なります。
+add5 の環境では x は 5 で、add10 の環境では x は 10 です。</p>
+
+<h2 id="toc_1">実用的なクロージャ</h2>
+
+<p>クロージャは実際の役に立つのでしょうか? </p>
+
+<p>クロージャを使うと、データ (環境) をそれを操作する関数と結びつける事が出来ます。</p>
+
+<p>これはオブジェクトを使ってデータ (オブジェクトのプロパティ) を 1 つかそれ以上のメソッドと結びつける事が出来るオブジェクト指向プログラミングと明らかに類似しています。</p>
+
+<p>したがって、メソッドを 1 つだけ持つオブジェクトを使いたくなるような状況ならば、どんな時でもクロージャを使う事ができます。</p>
+
+<p>JavaScript ではこのような状況はよくあります。
+私たちが書く JavaScript のコードは大半がイベントベースです。
+つまり、ある動作を定義し、それを click や keypress といったユーザーによって引き起こされるイベントに取り付けます。
+私たちのコードの多くはコールバック、すなわちイベントに反応して実行される単独の関数として取り付けられます。</p>
+
+<p>実例を挙げましょう。あるページにそのページのテキストの大きさを調整するためのボタンを追加しようとしているとします。
+1 つの方法として、まず body 要素の font-size をピクセル数で指定して、そのページ内の (見出しなどの) 他の要素のサイズを相対単位 em で設定します。</p>
+
+<div class="highlight"><pre><code class="css"><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="n">Aria</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h1</span> <span class="p">{</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">1.5em</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">h2</span> <span class="p">{</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">1.2em</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>これから作る対話式のテキストサイズ調整ボタンは、body 要素の font-size プロパティを変更し、その変更は相対単位によってページ上のほかの要素にも適用されます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">makeSizer</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">size12</span> <span class="o">=</span> <span class="nx">makeSizer</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">size14</span> <span class="o">=</span> <span class="nx">makeSizer</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">size16</span> <span class="o">=</span> <span class="nx">makeSizer</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+</code></pre></div>
+
+<p>size12、size14、size16 はそれぞれ body のテキストサイズを 12、14、16 px に変更する関数になっています。これらは以下のようにしてボタン (この場合はリンク) に取り付けられます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">setupButtons</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;size-12&#39;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">makeSizer</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;size-14&#39;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">makeSizer</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;size-16&#39;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">makeSizer</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">id=</span><span class="s">&quot;size-12&quot;</span><span class="nt">&gt;</span>12<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">id=</span><span class="s">&quot;size-14&quot;</span><span class="nt">&gt;</span>14<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">id=</span><span class="s">&quot;size-16&quot;</span><span class="nt">&gt;</span>16<span class="nt">&lt;/a&gt;</span>
+</code></pre></div>
+
+<h2 id="toc_2">クロージャでプライベートメソッドを模倣する</h2>
+
+<p>Java などの言語ではプライベートなメソッドを宣言することが出来ます。
+これは同じクラス内にあるほかのメソッドからのみ呼び出せるメソッドのことです。</p>
+
+<p>JavaScript にはこういった機能は組み込まれていませんが、
+クロージャを使うとプライベートメソッドを模倣する事ができます。</p>
+
+<p>プライベートメソッドはコードへのアクセスを制限するのに役立つだけではなく、
+コードのパブリックインターフェースが不要なメソッドでいっぱいになるのを防ぐため、
+グローバル名前空間を管理するのに非常に有効です。</p>
+
+<p>クロージャを使って、プライベートな関数と変数にアクセスできるパブリック関数を定義するにはこのようにします。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// 無名関数の定義</span>
+  <span class="c1">// 共有環境</span>
+  <span class="kd">var</span> <span class="nx">privateCounter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="err">　</span><span class="c1">// プライベート変数</span>
+
+  <span class="kd">function</span> <span class="nx">changeBy</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// プライベート関数</span>
+    <span class="nx">privateCounter</span> <span class="o">+=</span> <span class="nx">val</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 下記の３つの関数は上記の環境を共有している</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">increment</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">changeBy</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">decrement</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">changeBy</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">privateCounter</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>   
+<span class="p">})();</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">Counter</span><span class="p">.</span><span class="nx">value</span><span class="p">());</span> <span class="cm">/* 0 と表示される */</span>
+<span class="nx">Counter</span><span class="p">.</span><span class="nx">increment</span><span class="p">();</span>
+<span class="nx">Counter</span><span class="p">.</span><span class="nx">increment</span><span class="p">();</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">Counter</span><span class="p">.</span><span class="nx">value</span><span class="p">());</span> <span class="cm">/* 2 と表示される */</span>
+<span class="nx">Counter</span><span class="p">.</span><span class="nx">decrement</span><span class="p">();</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">Counter</span><span class="p">.</span><span class="nx">value</span><span class="p">());</span> <span class="cm">/* 1 と表示される */</span>
+</code></pre></div>
+
+<p><button id="run05" class="btn btn-info">Run</button></p>
+
+<p>ここでは色々な事が行われています。</p>
+
+<p>前の例ではクロージャがそれぞれ独自の環境を持っていましたが、この例では環境が 1 つだけ作成され、その環境は Counter.increment、Counter.decrement、Counter.value という 3 つの関数によって共有されています。</p>
+
+<p>この共有環境は、定義されるとすぐに実行される無名関数の本文で作成されています。</p>
+
+<p>この環境は変数 privateCounter と関数 changeBy という 2 つのプライベートアイテムを含んでいます。</p>
+
+<p>これらはどちらも無名関数の外側からは直接アクセス出来ません。</p>
+
+<p>その代わり、この無名ラッパ関数から返される 3 つのパブリック関数からはアクセスできます。</p>
+
+<p>これら 3 つのパブリック関数は同じ環境を共有するクロージャです。</p>
+
+<p>JavaScript のレキシカルスコーピングにより、これらの関数はそれぞれが変数 privateCounter と関数 changeBy にアクセスできます。</p>
+
+<p>このようにしてクロージャを使うと、普通はオブジェクト指向プログラミングに付き物のいくつかの利点、具体的にはデータの隠蔽やカプセル化が利用できるようになります。</p>
+
+<h2 id="toc_3">よくある間違い: ループ内でクロージャを作成する</h2>
+
+<p>JavaScript 1.7 で let キーワードが導入される前までは、ループの内部でクロージャが作成された時にある問題がよく起こっていました。次のような例を考えます。</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;help&quot;</span><span class="nt">&gt;</span>ここにヘルプが表示されます<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>Eメール: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;email&quot;</span> <span class="na">name=</span><span class="s">&quot;email&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>名前: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;name&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>年齢: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;age&quot;</span> <span class="na">name=</span><span class="s">&quot;age&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">showHelp</span><span class="p">(</span><span class="nx">help</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">help</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setupHelp</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">helpText</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="s1">&#39;あなたのEメールアドレス&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="s1">&#39;あなたのフルネーム&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="s1">&#39;あなたの年齢 (17 歳以上)&#39;</span><span class="p">}</span>
+  <span class="p">];</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">helpText</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">helpText</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">onfocus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">showHelp</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">help</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">setupHelp</span><span class="p">();</span>
+</code></pre></div>
+
+<p id="help">ここにヘルプが表示されます</p>
+
+<p>Eメール: <input type="text" id="email" name="email"></p>
+
+<p>名前: <input type="text" id="name" name="name"></p>
+
+<p>年齢: <input type="text" id="age" name="age"></p>
+
+<p>配列 helpText は 3 つのヘルプを定義しており、それぞれがドキュメント内の入力フィールドの ID と関連付けられています。</p>
+
+<p>ループがこれらの定義を巡回して、それぞれの入力フィールドの onfocus イベントをそれに関連付けられたヘルプを表示するメソッドと結び付けています。</p>
+
+<p>このコードを実行してみると、期待したとおりには動かないのが判ります。</p>
+
+<p>どのフィールドにフォーカスしても、表示されるのは年齢についてのメッセージです。</p>
+
+<p>こうなる理由は、onfocus に代入された関数がクロージャだからです。</p>
+
+<p>このクロージャは、関数定義と、 setupHelp 関数のスコープから捕捉された環境から成っています。</p>
+
+<p>クロージャは 3 つ作られましたが、これらはみな 1 つの同じ環境を共有しています。</p>
+
+<p>onfocus コールバックが実行される時にはループはすべて終了しており、変数 item (3 つのクロージャ全てに共有されている) は helpText リストの最後の項目を示したままにされています。</p>
+
+<p>こういった場合の解決策の 1 つとして、より多くのクロージャを使う方法があります。</p>
+
+<p>具体的には、前に述べたような関数ファクトリを使います。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">showHelp1</span><span class="p">(</span><span class="nx">help</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;help1&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">help</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">makeHelpCallback</span><span class="p">(</span><span class="nx">help</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">showHelp1</span><span class="p">(</span><span class="nx">help</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setupHelp1</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">helpText</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;email1&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="s1">&#39;あなたのEメールアドレス&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;name1&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="s1">&#39;あなたのフルネーム&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="s1">&#39;age1&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="s1">&#39;あなたの年齢 (17 歳以上)&#39;</span><span class="p">}</span>
+  <span class="p">];</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">helpText</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">helpText</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">onfocus</span> <span class="o">=</span> <span class="nx">makeHelpCallback</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">help</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">setupHelp1</span><span class="p">();</span>
+</code></pre></div>
+
+<p id="help1">ここにヘルプが表示されます</p>
+
+<p>Eメール: <input type="text" id="email1" name="email"></p>
+
+<p>名前: <input type="text" id="name1" name="name"></p>
+
+<p>年齢: <input type="text" id="age1" name="age"></p>
+
+<p>これは期待通り動きます。</p>
+
+<p>全てのコールバックが 1 つの環境を共有するのではなく、makeHelpCallback 関数がそれぞれに対して新しい環境を作っており、そこでは help が配列 helpText の対応する文字列を参照しています。</p>
+
+<p>JavaScript 1.7 以上を使用しているなら、ブロックレベルのスコープを持つ変数を作成できる let キーワードを使ってこの問題を解決できます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">helpText</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">helpText</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">onfocus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">showHelp</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">help</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>let キーワードによって変数 item がブロックレベルスコープで作成されるため、for ループによる反復のたびに新しい参照が作られます。</p>
+
+<p>つまりそれぞれのクロージャに対して別個の変数が捕捉されるため、環境の共有によって起こる問題が解決します。</p>
+
+<h2 id="toc_4">パフォーマンスへの配慮</h2>
+
+<p>あるタスクを実行する時、クロージャが必要とされていないのにいたずらに関数を他の関数の中に作成するのは、スクリプトのパフォーマンスに悪影響を及ぼすのであまり賢いやり方ではありません。</p>
+
+<p>例えば、新しくオブジェクト/クラスを作成する時、一般的にメソッドはオブジェクトのコンストラクタの中で定義するのではなく、オブジェクトのプロトタイプに結びつけるべきです。</p>
+
+<p>コンストラクタの中で定義してしまうと、コンストラクタが呼び出されるたびに (つまりオブジェクトが作成されるたびに) メソッドが再代入されてしまうことになるからです。</p>
+
+<p>次の実践的ではない例証のためのケースを考えます。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">MyObject</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">getName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">getMessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>上のコードではクロージャを使う事によって得るものが何もないので、再構成するべきです。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">MyObject</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">MyObject</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">getName</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="nx">getMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>もしくは、</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">MyObject</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">MyObject</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">MyObject</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getMessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>上の 2 つの例では、プロトタイプが継承されて全てのオブジェクトによって共有されるため、オブジェクトが作成されるたびにメソッドが定義されずに済みます。</p>
+
 <script src="/js/jquery.js"></script>
+
 <script>
-$(&quot;#run01&quot;).on(&quot;click&quot;, function(){</p>
+$("#run01").on("click", function(){
 
-<p>init();</p>
+  init();
 
-<p>function init() {
-    var name = &quot;Mozilla&quot;;</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">function displayName() {
-  alert(name);
-}
-displayName();
-</code></pre></div>
-<p>}
-});</p>
+  function init() {
+    var name = "Mozilla";
 
-<p>$(&quot;#run02&quot;).on(&quot;click&quot;, function(){</p>
+    function displayName() {
+      alert(name);
+    }
+    displayName();
+  }
+});
 
-<p>function makeFunc() {
-    var name = &quot;Mozilla&quot;;</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">function displayName() {
-  alert(name);
+$("#run02").on("click", function(){
+
+  function makeFunc() {
+    var name = "Mozilla";
+
+    function displayName() {
+      alert(name);
+    };
+    return displayName;
+  };
+
+  var myFunc = makeFunc();
+
+  myFunc();
+});
+
+function makeAdder(x) {
+  return function(y) {
+    return x + y;
+  };
 };
-return displayName;
-</code></pre></div>
-<p>};</p>
 
-<p>var myFunc = makeFunc();</p>
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
 
-<p>myFunc();
-});</p>
+$("#run03").on("click", function(){
+  alert(add5(2));
+});
+$("#run04").on("click", function(){
+  alert(add10(2));
+});
 
-<p></script></p>
+$("#run05").on("click", function(){
+  var Counter = (function() { // 無名関数の定義
+    // 共有環境
+    var privateCounter = 0;　// プライベート変数
+
+    function changeBy(val) { // プライベート関数
+      privateCounter += val;
+    }
+
+    // 下記の３つの関数は上記の環境を共有している
+    return {
+      increment: function() {
+        changeBy(1);
+      },
+      decrement: function() {
+        changeBy(-1);
+      },
+      value: function() {
+        return privateCounter;
+      }
+    }   
+  })();
+
+  alert(Counter.value()); /* 0 と表示される */
+  Counter.increment();
+  Counter.increment();
+  alert(Counter.value()); /* 2 と表示される */
+  Counter.decrement();
+  alert(Counter.value()); /* 1 と表示される */
+});
+
+/** showhelp**/
+function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+function setupHelp() {
+  var helpText = [
+    {'id': 'email', 'help': 'あなたのEメールアドレス'},
+    {'id': 'name', 'help': 'あなたのフルネーム'},
+    {'id': 'age', 'help': 'あなたの年齢 (17 歳以上)'}
+  ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    var item = helpText[i];
+    document.getElementById(item.id).onfocus = function() {
+      showHelp(item.help);
+    }
+  }
+}
+
+setupHelp();
+
+/* Show Help 1 **/
+function showHelp1(help) {
+  document.getElementById('help1').innerHTML = help;
+}
+
+function makeHelpCallback(help) {
+  return function() {
+    showHelp1(help);
+  }
+}
+
+function setupHelp1() {
+  var helpText = [
+    {'id': 'email1', 'help': 'あなたのEメールアドレス'},
+    {'id': 'name1', 'help': 'あなたのフルネーム'},
+    {'id': 'age1', 'help': 'あなたの年齢 (17 歳以上)'}
+  ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    var item = helpText[i];
+    document.getElementById(item.id).onfocus = makeHelpCallback(item.help);
+  }
+}
+
+setupHelp1();
+
+</script>
 
 </div>
 
